@@ -90,7 +90,7 @@ Flutter + Firebase learning app with authentication and word practice.
 </p>
 
 <p align="center">
-  Cat-approved builds and rainbow-powered debugging. &#x1F63A;&#x1F4A8;&#x1F308;
+  Cat-approved builds and debugging. 😎;
 </p>
 
 <p align="center">
