@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="120" viewBox="0 0 1200 120" role="img" aria-label="Subtle drifting snow">
+  <defs>
+    <linearGradient id="mist" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#cfe3ff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#cfe3ff" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#cfe3ff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="96" width="1200" height="24" fill="url(#mist)" opacity="0.35" />
+
+  <circle cx="80" cy="-10" r="2.4" fill="#d6e6ff" opacity="0.8">
+    <animate attributeName="cy" values="-10;130" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="80;120" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.7;0.9;0.7" dur="6s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="210" cy="-20" r="1.8" fill="#d6e6ff" opacity="0.7">
+    <animate attributeName="cy" values="-20;130" dur="10s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="210;240" dur="10s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="340" cy="-30" r="2.2" fill="#d6e6ff" opacity="0.75">
+    <animate attributeName="cy" values="-30;130" dur="14s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="340;300" dur="14s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.6;0.85;0.6" dur="7s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="480" cy="-15" r="1.6" fill="#d6e6ff" opacity="0.65">
+    <animate attributeName="cy" values="-15;130" dur="11s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="480;520" dur="11s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.75;0.5" dur="6s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="610" cy="-25" r="2.6" fill="#d6e6ff" opacity="0.8">
+    <animate attributeName="cy" values="-25;130" dur="16s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="610;650" dur="16s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="8s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="720" cy="-12" r="1.9" fill="#d6e6ff" opacity="0.7">
+    <animate attributeName="cy" values="-12;130" dur="13s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="720;690" dur="13s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.85;0.5" dur="7s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="840" cy="-18" r="2.2" fill="#d6e6ff" opacity="0.75">
+    <animate attributeName="cy" values="-18;130" dur="15s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="840;880" dur="15s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.6;0.85;0.6" dur="8s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="980" cy="-22" r="1.7" fill="#d6e6ff" opacity="0.7">
+    <animate attributeName="cy" values="-22;130" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="980;1020" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="6s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="1100" cy="-28" r="2.3" fill="#d6e6ff" opacity="0.8">
+    <animate attributeName="cy" values="-28;130" dur="17s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="1100;1060" dur="17s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="9s" repeatCount="indefinite" />
+  </circle>
+</svg>

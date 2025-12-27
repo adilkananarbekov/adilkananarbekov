@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Friendly cat mascot">
+  <g transform="translate(180 165)">
+    <g>
+      <path d="M0 0 C18 -12 40 -8 54 12" fill="none" stroke="#cfd9e6" stroke-width="6" stroke-linecap="round" />
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;8 0 0;0 0 0;-6 0 0;0 0 0" dur="6s" repeatCount="indefinite" />
+    </g>
+  </g>
+
+  <g stroke="#cfd9e6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="120" cy="130" r="70" fill="#1b2a36" />
+
+    <polygon points="70,70 90,28 110,78" fill="#1b2a36" />
+    <polygon points="170,70 150,28 130,78" fill="#1b2a36" />
+
+    <polygon points="78,70 92,42 104,78" fill="#2a3c4d" stroke="none" opacity="0.7" />
+    <polygon points="162,70 148,42 136,78" fill="#2a3c4d" stroke="none" opacity="0.7" />
+
+    <path d="M120 136 L124 142 L116 142 Z" fill="#cfd9e6" stroke="none" />
+    <path d="M120 144 C112 150 104 150 98 144" fill="none" />
+    <path d="M120 144 C128 150 136 150 142 144" fill="none" />
+
+    <line x1="60" y1="140" x2="30" y2="132" />
+    <line x1="60" y1="150" x2="30" y2="150" />
+    <line x1="180" y1="140" x2="210" y2="132" />
+    <line x1="180" y1="150" x2="210" y2="150" />
+
+    <circle cx="92" cy="152" r="4" fill="#2b3d50" stroke="none" opacity="0.6" />
+    <circle cx="148" cy="152" r="4" fill="#2b3d50" stroke="none" opacity="0.6" />
+  </g>
+
+  <g>
+    <ellipse cx="95" cy="125" rx="6" ry="6" fill="#e6f0ff">
+      <animate attributeName="ry" values="6;6;1;6" keyTimes="0;0.45;0.5;1" dur="6s" repeatCount="indefinite" />
+    </ellipse>
+    <ellipse cx="145" cy="125" rx="6" ry="6" fill="#e6f0ff">
+      <animate attributeName="ry" values="6;6;1;6" keyTimes="0;0.5;0.55;1" dur="6.5s" repeatCount="indefinite" />
+    </ellipse>
+
+    <circle cx="95" cy="125" r="2" fill="#0b1520">
+      <animate attributeName="opacity" values="1;1;0;1" keyTimes="0;0.45;0.5;1" dur="6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="145" cy="125" r="2" fill="#0b1520">
+      <animate attributeName="opacity" values="1;1;0;1" keyTimes="0;0.5;0.55;1" dur="6.5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>
