@@ -3,26 +3,50 @@
 </p>
 
 <p align="center">
-  Calm, creative Flutter / Mobile developer building cozy, reliable mobile experiences.
+  &#x2744;&#xFE0F; Flutter / Mobile Developer &middot; 3rd year CS student &middot; Hardware-friendly
 </p>
 
 <p align="center">
-  <a href="mailto:adilkananarbekov751@gmail.com">Email</a> |
-  <a href="https://www.linkedin.com/in/AdilkanAnarbekov">LinkedIn</a> |
-  <a href="https://t.me/Adilkan_07">Telegram</a>
+  I build calm, reliable mobile apps with Flutter and Firebase, plus real-world hardware integrations.
+  Clean UI, stable state, and a hint of playful energy. &#x1F43E;
+</p>
+
+<p align="center">
+  <a href="mailto:adilkananarbekov751@gmail.com">
+    <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Gmail.svg" width="20" height="20" alt="Email" />
+    Email
+  </a>
+  &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+  <a href="https://www.linkedin.com/in/AdilkanAnarbekov">
+    <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/LinkedIN.svg" width="20" height="20" alt="LinkedIn" />
+    LinkedIn
+  </a>
+  &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+  <a href="https://t.me/Adilkan_07">
+    <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Telegram.svg" width="20" height="20" alt="Telegram" />
+    Telegram
+  </a>
+</p>
+
+<p align="center">
+  <img src="assets/neon-divider.svg" alt="" width="100%">
 </p>
 
 <p align="center">
   <img src="assets/snow.svg" alt="Subtle drifting snow" width="100%">
 </p>
 
-## About
+## &#x2744;&#xFE0F; About
 - Flutter and Dart focused, mobile-first development
 - Practical hardware integration (Arduino + Bluetooth)
-- Calm, detail-driven engineering with clean structure
-- Open to internships and junior roles
+- Detail-driven engineering with clean structure and smooth UX
+- Open to internships and junior roles (and good team energy)
 
-## Tech stack
+<p align="center">
+  <img src="assets/neon-divider.svg" alt="" width="100%">
+</p>
+
+## &#x1F9F0; Tech stack
 <p align="center">
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg" width="36" height="36" alt="Flutter" />
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dart/dart-original.svg" width="36" height="36" alt="Dart" />
@@ -31,16 +55,17 @@
   <img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/bluetooth.svg" width="36" height="36" alt="Bluetooth" />
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" width="36" height="36" alt="C++" />
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="36" height="36" alt="Git" />
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark-Light-64px.png">
-    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark-64px.png" width="36" height="36" alt="GitHub" />
-  </picture>
+  <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Github.svg" width="36" height="36" alt="GitHub" />
 </p>
 
-## Projects
+<p align="center">
+  <img src="assets/neon-divider.svg" alt="" width="100%">
+</p>
+
+## &#x1F680; Projects
 ### Smart Light Control
-Flutter app + Arduino (HC-05) to toggle lighting with reliable Bluetooth pairing.
-- Highlights: device connection flow, simple permissions, clean UI structure
+Flutter + Arduino (HC-05) for reliable Bluetooth pairing and lighting control.
+- Highlights: device connection flow, permissions, clean UI structure
 - Status: demo available on request
 
 ### Kyrgyz-English Learning App
@@ -48,7 +73,7 @@ Flutter + Firebase learning app with authentication and word practice.
 - Repo: https://github.com/adilkananarbekov/learn_kyrgyz
 
 <details>
-  <summary>Stats snapshot</summary>
+  <summary>&#x1F4CC; Quick facts</summary>
 
   - 3rd year CS student
   - 2+ years of C++ and competitive programming
@@ -61,9 +86,17 @@ Flutter + Firebase learning app with authentication and word practice.
 </p>
 
 <p align="center">
+  <img src="assets/rainbow%20cat%20remix.gif" alt="Rainbow cat meme" width="140">
+</p>
+
+<p align="center">
+  Cat-approved builds and rainbow-powered debugging. &#x1F63A;&#x1F4A8;&#x1F308;
+</p>
+
+<p align="center">
   <img src="assets/snow.svg" alt="" width="100%">
 </p>
 
 <p align="center">
-  Built for calm, reliable mobile experiences.
+  Built for calm, reliable mobile experiences. Powered by curiosity and clean code. &#x2728;
 </p>
