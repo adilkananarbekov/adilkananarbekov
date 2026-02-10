@@ -62,6 +62,26 @@
   <img src="assets/neon-divider.svg" alt="" width="100%">
 </p>
 
+## &#x1F4CA; GitHub Stats
+
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=adilkananarbekov&theme=radical" alt="Adilkan's Stats" />
+
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=adilkananarbekov&theme=radical" alt="Adilkan's Languages" />
+</p>
+
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=adilkananarbekov&theme=radical&utcOffset=6" alt="Adilkan's Productive Time" />
+</p>
+
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=adilkananarbekov&label=Profile%20Views&color=fe428e&style=flat-square" alt="Profile Views" />
+</p>
+
+<p align="center">
+  <img src="assets/neon-divider.svg" alt="" width="100%">
+</p>
+
 ## &#x1F680; Projects
 ### Smart Light Control
 Flutter + Arduino (HC-05) for reliable Bluetooth pairing and lighting control.
