@@ -96,10 +96,6 @@ Flutter + Firebase learning app with authentication and word practice.
 </p>
 
 <p align="center">
-  <img src="assets/rainbow%20cat%20remix.gif" alt="Rainbow cat meme" width="140">
-</p>
-
-<p align="center">
   Cat-approved builds and debugging. 😎;
 </p>
 
