@@ -109,15 +109,15 @@
 <p align="center"><sub><b>CORE</b></sub><br>
   <a href="https://adilkan.com">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nodejs,react,flutter,postgres&theme=dark">
-      <img src="https://skillicons.dev/icons?i=nodejs,react,flutter,postgres&theme=light" alt="Node.js, React, Flutter, PostgreSQL">
+      <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nodejs%2Creact%2Cflutter%2Cpostgres&theme=dark">
+      <img src="https://skillicons.dev/icons?i=nodejs%2Creact%2Cflutter%2Cpostgres&theme=light" alt="Node.js, React, Flutter, PostgreSQL" height="64">
     </picture>
   </a>
 </p>
 <p align="center"><sub><b>ALSO</b></sub><br>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=ts,js,dart,express,sqlite,html,css,threejs,arduino,nginx,linux,git&perline=12&theme=dark">
-    <img src="https://skillicons.dev/icons?i=ts,js,dart,express,sqlite,html,css,threejs,arduino,nginx,linux,git&perline=12&theme=light" alt="TypeScript, JavaScript, Dart, Express, SQLite, HTML, CSS, Three.js, Arduino, Nginx, Linux, Git">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=ts%2Cjs%2Cdart%2Cexpress%2Csqlite%2Chtml%2Ccss%2Cthreejs%2Carduino%2Cnginx%2Clinux%2Cgit&perline=12&theme=dark">
+    <img src="https://skillicons.dev/icons?i=ts%2Cjs%2Cdart%2Cexpress%2Csqlite%2Chtml%2Ccss%2Cthreejs%2Carduino%2Cnginx%2Clinux%2Cgit&perline=12&theme=light" alt="TypeScript, JavaScript, Dart, Express, SQLite, HTML, CSS, Three.js, Arduino, Nginx, Linux, Git" height="44">
   </picture>
 </p>
 
