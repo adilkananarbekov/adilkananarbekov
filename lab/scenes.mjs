@@ -6,9 +6,26 @@ const pad = n => String(n).padStart(2, '0');
 // Local time in Bishkek (UTC+6, no DST).
 export function bishkek(date = new Date()) {
   const d = new Date(date.getTime() + 6 * 3600e3);
-  return {h: d.getUTCHours(), m: d.getUTCMinutes(), day: d.getUTCDate(), mon: d.getUTCMonth() + 1};
+  return {h: d.getUTCHours(), m: d.getUTCMinutes(), day: d.getUTCDate(), mon: d.getUTCMonth() + 1, year: d.getUTCFullYear()};
 }
-export function phaseOf(h) { return h < 5 || h >= 21 ? 'night' : h < 7 ? 'dawn' : h < 18 ? 'day' : 'dusk'; }
+export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Sunrise and sunset in Bishkek (42.87 N, 74.59 E) for the local date, in local minutes after midnight (NOAA approximation, about ±2 min).
+export function sunTimes(year, mon, day, lat = 42.87, lon = 74.59) {
+  const rad = Math.PI / 180, n = Math.round((Date.UTC(year, mon - 1, day) - Date.UTC(year, 0, 1)) / 864e5) + 1, g = 2 * Math.PI / 365 * (n - 1);
+  const eq = 229.18 * (.000075 + .001868 * Math.cos(g) - .032077 * Math.sin(g) - .014615 * Math.cos(2 * g) - .040849 * Math.sin(2 * g));
+  const decl = .006918 - .399912 * Math.cos(g) + .070257 * Math.sin(g) - .006758 * Math.cos(2 * g) + .000907 * Math.sin(2 * g) - .002697 * Math.cos(3 * g) + .00148 * Math.sin(3 * g);
+  const ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(lat * rad) * Math.cos(decl)) - Math.tan(lat * rad) * Math.tan(decl)) / rad;
+  return {rise: 720 - 4 * (lon + ha) - eq + 360, set: 720 - 4 * (lon - ha) - eq + 360};
+}
+// The sky at a moment: phase (night/dawn/day/dusk around the real sunrise and sunset), whether the sun is up and where it is on its arc.
+export function skyAt(now = new Date()) {
+  const {h, m, day, mon, year} = bishkek(now), t = h * 60 + m, {rise, set} = sunTimes(year, mon, day);
+  const phase = Math.abs(t - rise) <= 40 ? 'dawn' : Math.abs(t - set) <= 40 ? 'dusk' : t > rise && t < set ? 'day' : 'night';
+  const isSun = t >= rise && t < set, k = isSun ? (t - rise) / (set - rise) : ((t - set + 1440) % 1440) / (1440 - (set - rise));
+  const hm = x => `${pad(Math.floor(x / 60))}:${pad(Math.floor(x % 60))}`;
+  return {phase, isSun, k, rise: hm(rise), set: hm(set)};
+}
 const SKY = {night: ['#0b1026', '#232b63'], dawn: ['#93c5fd', '#fcd34d'], day: ['#60a5fa', '#dbeafe'], dusk: ['#6d28d9', '#fb923c']};
 
 export function ago(iso, now = new Date()) {
@@ -29,23 +46,24 @@ export function catMood(state, phase, now = new Date()) {
 
 /* ---------- Live room ---------- */
 export function liveRoom(t, state, now = new Date(), commits = null) {
-  const W = 1200, H = 330, {h, m, day, mon} = bishkek(now), phase = phaseOf(h), [sk0, sk1] = SKY[phase], lamp = !!state.lamp.on;
+  const W = 1200, H = 330, {h, m, day, mon} = bishkek(now), sky = skyAt(now), phase = sky.phase, [sk0, sk1] = SKY[phase], lamp = !!state.lamp.on;
   const mood = catMood(state, phase, now), dark = phase === 'night' || phase === 'dusk';
   const wx = 40, wy = 34, ww = 360, wh = 202;
-  // Sun from 6:00 to 20:00, moon from 20:00 to 6:00, along an arc across the window.
-  const hf = h + m / 60, sunK = (hf - 6) / 14, moonK = ((hf + 24 - 20) % 24) / 10, k = hf >= 6 && hf < 20 ? sunK : moonK;
-  const bx = wx + 24 + k * (ww - 48), by = wy + wh - 40 - Math.sin(Math.PI * k) * (wh - 80), isSun = hf >= 6 && hf < 20;
-  const r = rng(h * 60 + m), stars = phase === 'night' || phase === 'dusk' ? Array.from({length: phase === 'night' ? 26 : 10}, () => ({x: wx + 8 + r() * (ww - 16), y: wy + 8 + r() * (wh - 90), s: .6 + r() * 1.3, d: f(r() * 3)})) : [];
+  // The sun moves between the real sunrise and sunset; the moon crosses the window during the night.
+  const {k, isSun} = sky;
+  const bx = wx + 24 + k * (ww - 48), by = wy + wh - 40 - Math.sin(Math.PI * k) * (wh - 80);
+  const r = rng(h * 60 + m), stars = phase === 'night' || phase === 'dusk' ? Array.from({length: phase === 'night' ? 26 : 10}, () => ({x: wx + 8 + r() * (ww - 16), y: wy + 8 + r() * (wh - 90), s: .6 + r() * 1.3, d: f(-r() * 3)})) : [];
+  const nick = s => (s && s.length > 13 ? s.slice(0, 12) + '…' : s);
   const roomDark = dark && !lamp ? .55 : dark ? .22 : 0;
   const wall = t.name === 'light' ? '#eef3f9' : '#15111c', desk = t.name === 'light' ? '#d6e0ec' : '#221a2d', deskEdge = t.name === 'light' ? '#c3d0e0' : '#2e2340';
   const moodText = {purring: 'purring · fed', peckish: 'peckish · fed', hungry: 'hungry! · fed', asleep: 'asleep · fed'}[mood];
   const lines = [
-    ['sky', `${isSun ? '☀' : '☾'} ${phase}`],
-    ['lamp', lamp ? `ON · by @${state.lamp.by || 'someone'}` : `off${state.lamp.by ? ` · by @${state.lamp.by}` : ''}`],
+    ['sky', `${isSun ? '☀' : '☾'} ${phase} · ${sky.rise}–${sky.set}`],
+    ['lamp', lamp ? `ON · by @${nick(state.lamp.by) || 'someone'}` : `off${state.lamp.by ? ` · by @${nick(state.lamp.by)}` : ''}`],
     ['cat', `${moodText} ${state.cat.fed}×`],
-    ['last', state.cat.lastBy ? `@${state.cat.lastBy} · ${ago(state.cat.lastFedAt, now)}` : 'nobody yet — be first'],
-    ['year', commits != null ? `${commits} contributions` : '—'],
-    ['upd', `${pad(day)}.${pad(mon)} ${pad(h)}:${pad(m)} (UTC+6)`],
+    ['last', state.cat.lastBy ? `@${nick(state.cat.lastBy)} · ${ago(state.cat.lastFedAt, now)}` : 'nobody yet — be first'],
+    ['gh', commits != null ? `${commits} public contrib./yr` : '—'],
+    ['upd', `${day} ${MONTHS[mon - 1]} ${pad(h)}:${pad(m)} (UTC+6)`],
   ];
   const catX = 834, catY = 250, roomT = t.name === 'dark' ? {...t, cat: '#2d2440'} : t;
   const catFill = roomT.cat;
@@ -53,13 +71,13 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
     ? `<g transform="translate(${catX} ${catY})"><g class="breath"><ellipse cx="0" cy="-13" rx="30" ry="14" fill="${catFill}"/><circle cx="-22" cy="-14" r="11" fill="${catFill}"/>
         <path d="M-30 -20l1-11 7 6zM-16 -21l3-10 4 8z" fill="${catFill}"/><path d="M26 -8c10 2 12 8 2 10" fill="none" stroke="${catFill}" stroke-width="5" stroke-linecap="round"/>
         <path d="M-27 -14h5M-19 -14h5" stroke="${t.eye}" stroke-width="1.6" stroke-linecap="round" opacity=".7"/></g>
-        ${[0, 1, 2].map(i => `<text class="zz" style="animation-delay:${i * 1.1}s" x="${-6 + i * 9}" y="-34" font-family="${SANS}" font-size="${13 + i * 3}" font-weight="700" fill="${t.soft}">z</text>`).join('')}</g>`
+        ${[0, 1, 2].map(i => `<text class="zz" style="animation-delay:-${f(i * 1.1)}s" x="${-6 + i * 9}" y="-34" font-family="${SANS}" font-size="${13 + i * 3}" font-weight="700" fill="${t.soft}">z</text>`).join('')}</g>`
     : `<g transform="translate(${catX} ${catY})">${cat(roomT, {id: 'rc'})}</g>
        ${mood === 'hungry' ? `<g class="bubble"><rect x="${catX - 108}" y="${catY - 104}" width="92" height="30" rx="12" fill="${t.panel}" stroke="${t.a}" stroke-opacity=".5"/><text x="${catX - 62}" y="${catY - 84}" text-anchor="middle" font-family="${SANS}" font-size="13" font-weight="700" fill="${t.ink}">meow… 🐟?</text></g>` : ''}
        ${mood === 'purring' ? `<text class="heart" x="${catX + 20}" y="${catY - 70}" font-size="16">♥</text>` : ''}`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="title desc">
 <title id="title">Live room of the lab</title>
-<desc id="desc">Bishkek ${pad(h)}:${pad(m)}, ${phase}. The lamp is ${lamp ? 'on' : 'off'}. The cat is ${mood} and has been fed ${state.cat.fed} times.</desc>
+<desc id="desc">Bishkek ${pad(h)}:${pad(m)}, ${phase}. The lamp is ${lamp ? 'on' : 'off'}. The cat is ${mood} and has been fed ${state.cat.fed === 1 ? 'once' : `${state.cat.fed} times`}.</desc>
 <defs>
   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sk0}"/><stop offset="1" stop-color="${sk1}"/></linearGradient>
   <radialGradient id="cone" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fde68a" stop-opacity="${dark ? .75 : .35}"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient>
@@ -102,7 +120,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
     ${Array.from({length: 12}, (_, i) => `<rect x="-1" y="-23" width="2" height="${i % 3 ? 3 : 6}" fill="${t.soft}" transform="rotate(${i * 30})"/>`).join('')}
     <line x1="0" y1="0" x2="0" y2="-13" stroke="${t.ink}" stroke-width="3" stroke-linecap="round" transform="rotate(${f((h % 12) * 30 + m / 2)})"/>
     <line x1="0" y1="0" x2="0" y2="-20" stroke="${t.a}" stroke-width="2" stroke-linecap="round" transform="rotate(${m * 6})"/>
-    <line x1="0" y1="3" x2="0" y2="-21" stroke="${t.b}" stroke-width="1" transform="rotate(0)"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="60s" repeatCount="indefinite"/></line>
+    <line class="motion" x1="0" y1="3" x2="0" y2="-21" stroke="${t.b}" stroke-width="1" transform="rotate(0)"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="60s" repeatCount="indefinite"/></line>
     <circle r="2.6" fill="${t.ink}"/></g>
   <g transform="translate(652 36)"><rect width="128" height="96" rx="8" fill="${t.panel}" stroke="${deskEdge}" stroke-width="3"/>
     <circle cx="64" cy="42" r="24" fill="url(#poster)"/><path d="M66 18c6-1 9-7 8-12l-5 4-3-5-3 5-5-4c-1 5 2 11 8 12z" fill="${roomT.cat}"/>
@@ -123,7 +141,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   <!-- laptop -->
   <path d="M628 250h150l-12-8H640z" fill="${t.name === 'light' ? '#94a3b8' : '#3b3150'}"/>
   <rect x="646" y="176" width="116" height="66" rx="6" fill="${t.name === 'light' ? '#1e293b' : '#0b0910'}"/>
-  ${[0, 1, 2, 3].map(i => `<rect class="code" style="animation-delay:${i * .45}s" x="656" y="${188 + i * 12}" width="${[70, 52, 84, 40][i]}" height="5" rx="2.5" fill="${i % 2 ? t.b : t.a}" opacity=".9"/>`).join('')}
+  ${[0, 1, 2, 3].map(i => `<rect class="code" style="animation-delay:-${f(i * .45)}s" x="656" y="${188 + i * 12}" width="${[70, 52, 84, 40][i]}" height="5" rx="2.5" fill="${i % 2 ? t.b : t.a}" opacity=".9"/>`).join('')}
   ${catSvg}
   <!-- status panel -->
   <rect x="884" y="30" width="288" height="270" rx="16" fill="${t.panel}" opacity=".94" stroke="${t.line}"/>
@@ -131,7 +149,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   <circle class="live" cx="906" cy="60" r="4.5" fill="${t.a}"/>
   <text class="m" x="920" y="65" font-size="13" font-weight="700" fill="${t.a}">LIVE · BISHKEK ${pad(h)}:${pad(m)}</text>
   ${lines.map(([k2, v], i) => `<text class="m" x="904" y="${104 + i * 30}" font-size="13" fill="${t.soft}">${esc(k2)}</text><text class="m" x="954" y="${104 + i * 30}" font-size="13" font-weight="600" fill="${t.ink}">${esc(v)}</text>`).join('\n  ')}
-  <text class="t" x="904" y="288" font-size="11.5" fill="${t.soft}">press a button below — the room changes for everyone</text>
+  <text class="t" x="1028" y="288" text-anchor="middle" font-size="11.5" fill="${t.soft}">buttons below change the room for everyone</text>
 </g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="22" fill="none" stroke="${t.line}"/>
 </svg>
@@ -148,23 +166,21 @@ function smooth(pts) {
   }
   return d;
 }
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 export function mountains(t, weeks, total) {
   // weeks: [{start: 'YYYY-MM-DD', count: n}] oldest first.
-  const W = 1200, H = 270, base = 232, x0 = 40, x1 = 1160, max = Math.max(1, ...weeks.map(w => w.count));
-  const pts = weeks.map((w, i) => [x0 + i * (x1 - x0) / Math.max(1, weeks.length - 1), base - 14 - 150 * Math.sqrt(w.count / max)]);
+  const W = 1200, H = 310, base = 272, x0 = 40, x1 = 1160, max = Math.max(1, ...weeks.map(w => w.count));
+  const pts = weeks.map((w, i) => [x0 + i * (x1 - x0) / Math.max(1, weeks.length - 1), base - 14 - 130 * Math.sqrt(w.count / max)]);
   const ridgeD = smooth(pts), area = `${ridgeD} L${x1} ${H} L${x0} ${H} Z`;
   const back = smooth(pts.map(([x, y]) => [x + 16, base - (base - y) * .72 - 10])) + ` L${x1 + 16} ${H} L${x0 + 16} ${H} Z`;
   const top = weeks.reduce((a, w, i) => (w.count > weeks[a].count ? i : a), 0), [px, py] = pts[top];
   const peaks = pts.filter((p, i) => i > 0 && i < pts.length - 1 && p[1] < pts[i - 1][1] && p[1] <= pts[i + 1][1] && base - p[1] > 95);
   const months = []; let lastMon = -1;
   weeks.forEach((w, i) => { const mo = +w.start.slice(5, 7) - 1; if (mo !== lastMon) { months.push([pts[i][0], MONTHS[mo]]); lastMon = mo; } });
-  const r = rng(total + weeks.length), stars = t.name === 'dark' ? Array.from({length: 30}, () => ({x: r() * W, y: 10 + r() * 110, s: .5 + r() * 1.2, d: f(r() * 3)})) : [];
+  const r = rng(total + weeks.length), stars = t.name === 'dark' ? Array.from({length: 30}, () => ({x: r() * W, y: 10 + r() * 110, s: .5 + r() * 1.2, d: f(-r() * 3)})) : [];
   const topWeek = weeks[top], topDate = new Date(topWeek.start + 'T00:00:00Z');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="title desc">
 <title id="title">Commit mountains</title>
-<desc id="desc">${total} contributions in the last year drawn as a mountain ridge; each point is a week. The busiest week started ${topWeek.start} with ${topWeek.count} contributions.</desc>
+<desc id="desc">${total} public contributions on GitHub in the last year drawn as a mountain ridge; each point is a week. The busiest week started ${topWeek.start} with ${topWeek.count} contributions.</desc>
 <defs>
   <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t.a}" stop-opacity=".9"/><stop offset="1" stop-color="${t.b}" stop-opacity=".25"/></linearGradient>
   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t.bg}"/><stop offset="1" stop-color="${t.bg2}"/></linearGradient>
@@ -183,13 +199,13 @@ export function mountains(t, weeks, total) {
   <g clip-path="url(#ridge)">${peaks.map(([x, y]) => `<rect x="${f(x - 26)}" y="${f(y - 4)}" width="52" height="16" fill="#fff" opacity=".82"/>`).join('')}</g>
   <path d="${ridgeD}" fill="none" stroke="${t.a}" stroke-width="2" opacity=".8"/>
   <g transform="translate(${f(px)} ${f(py)})"><path d="M0 0V-34" stroke="${t.ink}" stroke-width="2"/><path class="flag" d="M0 -34l22 6-22 7z" fill="${t.a}"/></g>
-  <g transform="translate(0 -11)">
+  <g class="motion" transform="translate(0 -11)">
     <circle r="16" fill="${t.a}" opacity=".18"><animateMotion dur="28s" repeatCount="indefinite" path="${ridgeD}" begin="-.35s"/></circle>
     <circle r="9" fill="url(#dp)"><animateMotion dur="28s" repeatCount="indefinite" path="${ridgeD}"/></circle>
   </g>
   ${months.map(([x, name]) => `<text x="${f(x)}" y="${H - 12}" font-family="${SANS}" font-size="11" fill="${t.soft}">${name}</text>`).join('')}
-  <text x="40" y="44" font-family="${SANS}" font-size="22" font-weight="800" fill="${t.ink}">${total} contributions in the last year</text>
-  <text x="40" y="66" font-family="${MONO}" font-size="12" fill="${t.soft}">each point of the ridge is a week · the droplet rolls over it</text>
+  <text x="40" y="44" font-family="${SANS}" font-size="22" font-weight="800" fill="${t.ink}">${total} contributions on GitHub in the last year</text>
+  <text x="40" y="66" font-family="${MONO}" font-size="12" fill="${t.soft}">public activity only — client work lives in private repos · each point is a week</text>
   <text x="1160" y="44" text-anchor="end" font-family="${MONO}" font-size="12.5" font-weight="700" fill="${t.a}">▲ busiest week · ${pad(topDate.getUTCDate())} ${MONTHS[topDate.getUTCMonth()]} · ${topWeek.count}</text>
 </g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="22" fill="none" stroke="${t.line}"/>

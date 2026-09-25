@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="426" viewBox="0 0 1200 426" role="img" aria-label="ADI-01 terminal: who Adilkan is, the stack, what has been shipped and how to reach him">
-<defs><style>text{font-family:ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',Menlo,monospace}.caret{animation:caret 1s steps(1) infinite}@keyframes caret{0%{opacity:1}50%{opacity:0}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+<defs><style>text{font-family:ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',Menlo,monospace}.caret{animation:caret 1s steps(1) infinite}@keyframes caret{0%{opacity:1}50%{opacity:0}}@media (prefers-reduced-motion:reduce){*{animation:none!important}.motion{display:none}.zz,.heart{opacity:.8}}</style>
 <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e11d48"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
 <rect x="10" y="10" width="1180" height="406" rx="16" fill="#0b0910"/>
 <rect x="10" y="10" width="1180" height="3" rx="1.5" fill="url(#bar)"/>
@@ -7,31 +7,31 @@
 <text x="600" y="43" text-anchor="middle" font-size="13" fill="#8a7f9c">adi-01@lab — zsh</text>
 <clipPath id="c0"><rect x="84.8" y="78" height="26" width="0"><animate attributeName="width" dur="19.13s" repeatCount="indefinite" calcMode="discrete" values="0;10.2;20.4;30.6;40.8;51;61.2;71.4;81.6;91.8;102;112.2;122.4;132.6" keyTimes="0;0.035;0.0387;0.0423;0.046;0.0497;0.0533;0.057;0.0606;0.0643;0.068;0.0716;0.0753;0.0789"/></rect></clipPath>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.03" values="0;1"/>
-      <text x="44" y="96" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve">➜ ~ </text></g>
+      <text x="44" y="96" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve" textLength="40.8" lengthAdjust="spacing">~ $ </text></g>
     <text clip-path="url(#c0)" x="84.8" y="96" font-size="17" fill="#efe9f7" textLength="132.6" lengthAdjust="spacing">adi-01 whoami</text>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.11" values="0;1"/>
       <text x="44" y="126" font-size="17" fill="#8a7f9c">Adilkan Anarbekov — web &amp; Flutter developer with commercial experience · Bishkek, Kyrgyzstan</text></g><clipPath id="c1"><rect x="84.8" y="138" height="26" width="0"><animate attributeName="width" dur="19.13s" repeatCount="indefinite" calcMode="discrete" values="0;10.2;20.4;30.6;40.8;51;61.2;71.4;81.6;91.8;102;112.2;122.4;132.6;142.8;153;163.2;173.4;183.6;193.8" keyTimes="0;0.1662;0.1699;0.1735;0.1772;0.1809;0.1845;0.1882;0.1918;0.1955;0.1992;0.2028;0.2065;0.2101;0.2138;0.2175;0.2211;0.2248;0.2284;0.2321"/></rect></clipPath>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.16" values="0;1"/>
-      <text x="44" y="156" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve">➜ ~ </text></g>
+      <text x="44" y="156" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve" textLength="40.8" lengthAdjust="spacing">~ $ </text></g>
     <text clip-path="url(#c1)" x="84.8" y="156" font-size="17" fill="#efe9f7" textLength="193.8" lengthAdjust="spacing">adi-01 stack --core</text>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.26" values="0;1"/>
       <text x="44" y="186" font-size="17" fill="#8a7f9c">Node.js · React · Flutter · PostgreSQL   (+ TypeScript, Dart, Express, SQLite, WebGL)</text></g><clipPath id="c2"><rect x="84.8" y="198" height="26" width="0"><animate attributeName="width" dur="19.13s" repeatCount="indefinite" calcMode="discrete" values="0;10.2;20.4;30.6;40.8;51;61.2;71.4;81.6;91.8;102;112.2;122.4;132.6;142.8" keyTimes="0;0.3194;0.3231;0.3267;0.3304;0.334;0.3377;0.3413;0.345;0.3487;0.3523;0.356;0.3596;0.3633;0.367"/></rect></clipPath>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.32" values="0;1"/>
-      <text x="44" y="216" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve">➜ ~ </text></g>
+      <text x="44" y="216" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve" textLength="40.8" lengthAdjust="spacing">~ $ </text></g>
     <text clip-path="url(#c2)" x="84.8" y="216" font-size="17" fill="#efe9f7" textLength="142.8" lengthAdjust="spacing">adi-01 shipped</text>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.39" values="0;1"/>
       <text x="44" y="246" font-size="17" fill="#8a7f9c">e-commerce · booking &amp; tourism · education platforms · migrations · VPS deploys</text></g><clipPath id="c3"><rect x="84.8" y="258" height="26" width="0"><animate attributeName="width" dur="19.13s" repeatCount="indefinite" calcMode="discrete" values="0;10.2;20.4;30.6;40.8;51;61.2;71.4;81.6;91.8;102;112.2;122.4;132.6;142.8;153;163.2;173.4;183.6;193.8" keyTimes="0;0.4543;0.4579;0.4616;0.4652;0.4689;0.4726;0.4762;0.4799;0.4835;0.4872;0.4909;0.4945;0.4982;0.5018;0.5055;0.5091;0.5128;0.5165;0.5201"/></rect></clipPath>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.45" values="0;1"/>
-      <text x="44" y="276" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve">➜ ~ </text></g>
+      <text x="44" y="276" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve" textLength="40.8" lengthAdjust="spacing">~ $ </text></g>
     <text clip-path="url(#c3)" x="84.8" y="276" font-size="17" fill="#efe9f7" textLength="193.8" lengthAdjust="spacing">adi-01 cat --status</text>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.55" values="0;1"/>
       <text x="44" y="306" font-size="17" fill="#a78bfa">😺 on duty in the live room above. Feed it — it remembers who did.</text></g><clipPath id="c4"><rect x="84.8" y="318" height="26" width="0"><animate attributeName="width" dur="19.13s" repeatCount="indefinite" calcMode="discrete" values="0;10.2;20.4;30.6;40.8;51;61.2;71.4;81.6;91.8;102;112.2;122.4;132.6;142.8" keyTimes="0;0.6074;0.6111;0.6147;0.6184;0.6221;0.6257;0.6294;0.633;0.6367;0.6404;0.644;0.6477;0.6513;0.655"/></rect></clipPath>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6" values="0;1"/>
-      <text x="44" y="336" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve">➜ ~ </text></g>
+      <text x="44" y="336" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve" textLength="40.8" lengthAdjust="spacing">~ $ </text></g>
     <text clip-path="url(#c4)" x="84.8" y="336" font-size="17" fill="#efe9f7" textLength="142.8" lengthAdjust="spacing">adi-01 contact</text>
     <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.68" values="0;1"/>
       <text x="44" y="366" font-size="17" fill="#8a7f9c">t.me/Adilkan_07 · adilkananarbekov751@gmail.com · adilkan.com</text></g>
 <g opacity="0"><animate attributeName="opacity" dur="19.13s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.72" values="0;1"/>
-<text x="44" y="396" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve">➜ ~ </text>
+<text x="44" y="396" font-size="17" fill="#f472b6" font-weight="700" xml:space="preserve" textLength="40.8" lengthAdjust="spacing">~ $ </text>
 <rect class="caret" x="84.8" y="380" width="10" height="21" fill="#efe9f7"/></g>
 </svg>

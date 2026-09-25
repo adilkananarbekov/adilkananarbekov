@@ -23,7 +23,7 @@ function hero(t) {
   const fs = 22, charW = fs * .6, prefix = '> I build ', px = 66, py = 300, wx = px + prefix.length * charW, slot = 3.4, cycle = slot * words.length;
   const r1 = rng(7), sparks = Array.from({length: 16}, (_, i) => ({x: 640 + r1() * 540, y: 30 + r1() * 300, s: 1.2 + r1() * 1.8, d: f(r1() * 4)}));
   const icons = ['Node', 'React', 'Flutter', 'PG', 'TS', 'WebGL'], orbit = `M${cx - 178} ${cy} a178 44 0 1 0 356 0 a178 44 0 1 0 -356 0`, od = 21;
-  const chip = (label, i, cls) => `<g class="${cls}" opacity="0"><animateMotion dur="${od}s" repeatCount="indefinite" begin="${f(-i * od / icons.length)}s" path="${orbit}"/>
+  const chip = (label, i, cls) => `<g class="${cls} motion" opacity="0"><animateMotion dur="${od}s" repeatCount="indefinite" begin="${f(-i * od / icons.length)}s" path="${orbit}"/>
       <set attributeName="opacity" to="1" begin="0s"/>
       <rect x="-30" y="-14" width="60" height="28" rx="9" fill="${t.panel}" stroke="${t.a}" stroke-opacity=".5"/>
       <text x="0" y="5" text-anchor="middle" font-family="${SANS}" font-size="13" font-weight="700" fill="${t.a}">${label}</text></g>`;
@@ -75,7 +75,7 @@ function hero(t) {
   <rect width="${W}" height="${H}" fill="url(#dots)"/>
   <circle cx="${cx + 20}" cy="${cy}" r="330" fill="url(#glow)"/>
   <circle cx="${cx - 220}" cy="${cy + 150}" r="240" fill="url(#glow2)"/>
-  ${sparks.map(s => `<circle class="spark" style="animation-delay:${s.d}s" cx="${f(s.x)}" cy="${f(s.y)}" r="${f(s.s)}" fill="${t.spark}"/>`).join('')}
+  ${sparks.map(s => `<circle class="spark" style="animation-delay:-${s.d}s" cx="${f(s.x)}" cy="${f(s.y)}" r="${f(s.s)}" fill="${t.spark}"/>`).join('')}
   <g class="comet"><rect x="1080" y="34" width="120" height="2" rx="1" fill="url(#comet)" transform="rotate(-20 1140 35)"/></g>
   <path class="far" d="${ridge(2400, 360, 120, 3)}" fill="${t.mount}"/>
   <path class="near" d="${ridge(2400, 402, 70, 11)}" fill="${t.mount2}"/>
@@ -124,18 +124,19 @@ const divider = t => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" heigh
 
 /* ---------- Section headers ---------- */
 function header(t, num, title, note) {
-  const tx = 132, lineX = tx + title.length * 14.5 + 24;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="64" viewBox="0 0 1200 64" role="img" aria-label="Lab ${num}: ${esc(title)}">
+  const tx = 132, lineX = tx + title.length * 17 + 24;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="64" viewBox="0 0 800 64" role="img" aria-label="Lab ${num}: ${esc(title)}">
 <defs><linearGradient id="h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${t.a}" stop-opacity="0"/><stop offset=".5" stop-color="${t.a}"/><stop offset="1" stop-color="${t.b}" stop-opacity="0"/></linearGradient>
-<style>.scan{animation:scan 5s ease-in-out infinite}@keyframes scan{0%{transform:translateX(0)}100%{transform:translateX(${f(1150 - lineX)}px)}}
+<style>.scan{animation:scan 5s ease-in-out infinite}@keyframes scan{0%{transform:translateX(0)}100%{transform:translateX(${f(750 - lineX)}px)}}
+@media (max-width:520px){.note{display:none}}
 .blip{animation:blip 2.4s ease-in-out infinite}@keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}${REDUCED}</style></defs>
 <rect x="20" y="18" width="94" height="30" rx="8" fill="none" stroke="${t.a}" stroke-opacity=".55"/>
 <circle class="blip" cx="34" cy="33" r="4" fill="${t.a}"/>
 <text x="46" y="38.5" font-family="${MONO}" font-size="14" font-weight="700" fill="${t.a}">LAB/${num}</text>
 <text x="${tx}" y="42" font-family="${SANS}" font-size="26" font-weight="800" fill="${t.ink}">${esc(title)}</text>
-<rect x="${f(lineX)}" y="32.5" width="${f(1180 - lineX)}" height="1" fill="${t.line}"/>
+<rect x="${f(lineX)}" y="32.5" width="${f(780 - lineX)}" height="1" fill="${t.line}"/>
 <rect class="scan" x="${f(lineX)}" y="31.5" width="60" height="3" rx="1.5" fill="url(#h)"/>
-${note ? `<text x="1180" y="22" text-anchor="end" font-family="${MONO}" font-size="12" fill="${t.soft}">${esc(note)}</text>` : ''}
+${note ? `<text class="note" x="780" y="22" text-anchor="end" font-family="${MONO}" font-size="11" fill="${t.soft}">${esc(note)}</text>` : ''}
 </svg>
 `;
 }
@@ -152,8 +153,8 @@ function button(t, label, icon, {w = null, solid = true} = {}) {
 .ic{animation:ic 4.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes ic{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-12deg) scale(1.15)}82%{transform:rotate(8deg)}}${REDUCED}</style></defs>
 <rect class="ring" x="10" y="10" width="${bw}" height="52" rx="26" fill="none" stroke="${t.a}" stroke-width="2"/>
 <rect x="10" y="10" width="${bw}" height="52" rx="26" fill="${solid ? 'url(#g)' : t.panel}" ${solid ? '' : `stroke="${t.a}" stroke-opacity=".6"`}/>
-<g clip-path="url(#c)"><rect class="sh" x="0" y="0" width="70" height="${H}" fill="url(#s)" transform="skewX(-20)"/></g>
-<text class="ic" x="42" y="44" text-anchor="middle" font-size="21">${icon}</text>
+<g clip-path="url(#c)"><g class="sh"><rect x="0" y="0" width="70" height="${H}" fill="url(#s)" transform="skewX(-20)"/></g></g>
+<text class="ic" x="42" y="44" text-anchor="middle" font-family="${SANS}" font-size="21" font-weight="700" fill="${solid ? '#fff' : t.a}">${icon}</text>
 <text x="62" y="43" font-family="${SANS}" font-size="17" font-weight="700" fill="${solid ? '#fff' : t.a}">${esc(label)}</text>
 </svg>
 `;
@@ -178,10 +179,10 @@ function card(t, name, img) {
     over = `<circle cx="635" cy="315" r="100" fill="none" stroke="#fff" stroke-width="2" opacity="0"><animate attributeName="r" dur="3.2s" repeatCount="indefinite" values="100;138"/><animate attributeName="opacity" dur="3.2s" repeatCount="indefinite" values=".6;0"/></circle>
     <rect x="18" y="323" width="133" height="33" rx="9" fill="#fff" opacity="0">${blink(7, .4, .46)}</rect>
     <g opacity="0"><animate attributeName="opacity" dur="7s" repeatCount="indefinite" keyTimes="0;.44;.48;.82;.86;1" values="0;0;1;1;0;0"/>
-      <rect x="160" y="300" width="208" height="40" rx="12" fill="${t.panel}" stroke="${t.a}" stroke-opacity=".4"/>
-      <text x="178" y="325" font-family="${SANS}" font-size="14" font-weight="700" fill="${t.ink}">✈ Telegram opened · hi!</text></g>
+      <rect x="160" y="300" width="268" height="40" rx="12" fill="${t.panel}" stroke="${t.a}" stroke-opacity=".4"/>
+      <text x="178" y="325" font-family="${SANS}" font-size="14" font-weight="700" fill="${t.ink}">↓ Contacts: Telegram · email · brief</text></g>
     ${ripple(84, 339, 7, .42)}
-    <g>${cursorAnim([560, 470], [80, 336], 7, .38, .6)}${CURSOR}</g>`;
+    <g class="motion">${cursorAnim([560, 470], [80, 336], 7, .38, .6)}${CURSOR}</g>`;
   }
   if (name === 'go-kyrgyzstan') {
     over = [[725, 181], [120, 418]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="9" fill="none" stroke="${t.a}" stroke-width="2.5" opacity="0"><animate attributeName="r" dur="2.4s" begin="${i * 1.2}s" repeatCount="indefinite" values="9;28"/><animate attributeName="opacity" dur="2.4s" begin="${i * 1.2}s" repeatCount="indefinite" values=".85;0"/></circle>`).join('') + `
@@ -192,7 +193,7 @@ function card(t, name, img) {
       <circle cx="484" cy="95" r="16" fill="${t.a}"/><text x="484" y="101" text-anchor="middle" font-size="16">🔔</text>
       <text x="512" y="90" font-family="${SANS}" font-size="15" font-weight="800" fill="${t.ink}">New booking request</text>
       <text x="512" y="111" font-family="${SANS}" font-size="12.5" fill="${t.soft}">sent to the team in Telegram · just now</text></g>
-    <g>${cursorAnim([380, 505], [612, 446], 7.5, .36, .6)}${CURSOR}</g>`;
+    <g class="motion">${cursorAnim([380, 505], [612, 446], 7.5, .36, .6)}${CURSOR}</g>`;
   }
   if (name === 'eduprog') {
     const rows = [117, 165, 214, 263];
@@ -200,10 +201,10 @@ function card(t, name, img) {
       <animate attributeName="y" dur="6.4s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75" values="${rows.join(';')}"/></rect>
     ${[160, 190, 220, 250, 280, 310, 340].map((x, i) => `<rect x="${x - 13}" y="137" width="26" height="26" rx="7" fill="none" stroke="${t.a}" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="4.2s" begin="${f(i * .6)}s" repeatCount="indefinite" keyTimes="0;.08;.3;1" values="0;1;0;0"/></rect>`).join('')}
     <g opacity="0"><animate attributeName="opacity" dur="6.4s" repeatCount="indefinite" keyTimes="0;.5;.56;.9;.96;1" values="0;0;1;1;0;0"/>
-      <rect x="232" y="176" width="112" height="34" rx="10" fill="${t.panel}" stroke="${t.a}" stroke-opacity=".4"/>
-      <text x="246" y="198" font-family="${SANS}" font-size="13.5" font-weight="700" fill="${t.ink}">+1 grade ★ 5</text></g>
+      <rect x="226" y="176" width="128" height="34" rx="10" fill="${t.panel}" stroke="${t.a}" stroke-opacity=".4"/>
+      <text x="240" y="198" font-family="${SANS}" font-size="13.5" font-weight="700" fill="${t.ink}">New grade: 5 ★</text></g>
     ${ripple(300, 246, 6.4, .5, t.a)}
-    <g>${cursorAnim([520, 470], [298, 243], 6.4, .44, .7)}${CURSOR}</g>`;
+    <g class="motion">${cursorAnim([520, 470], [298, 243], 6.4, .44, .7)}${CURSOR}</g>`;
   }
   if (name === 'lumen') {
     over = `<rect x="160" y="0" width="640" height="401" fill="#05040a" opacity="0">
@@ -213,7 +214,7 @@ function card(t, name, img) {
       <ellipse cx="596" cy="236" rx="2" ry="5" fill="#1a1405"/><ellipse cx="620" cy="236" rx="2" ry="5" fill="#1a1405"/>
       <text x="640" y="214" font-family="${SANS}" font-size="13" fill="#facc15" opacity=".85">…mrr?</text></g>
     ${ripple(90, 253, 8, .33, t.a)}${ripple(90, 253, 8, .7, t.a)}
-    <g>${cursorAnim([330, 470], [86, 250], 8, .28, .78)}${CURSOR}</g>`;
+    <g class="motion">${cursorAnim([330, 470], [86, 250], 8, .28, .78)}${CURSOR}</g>`;
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(img)}">
 <defs><clipPath id="r"><rect width="${W}" height="${H}" rx="18"/></clipPath><style>${REDUCED}</style></defs>
@@ -235,7 +236,7 @@ function terminal(t) {
     ['adi-01 cat --status', '😺 on duty in the live room above. Feed it — it remembers who did.'],
     ['adi-01 contact', 't.me/Adilkan_07 · adilkananarbekov751@gmail.com · adilkan.com'],
   ];
-  const H = 96 + lines.length * lh * 2 + 30, prompt = '➜ ~ ', px = x0 + prompt.length * cw;
+  const H = 96 + lines.length * lh * 2 + 30, prompt = '~ $ ', px = x0 + prompt.length * cw;
   let clock = .6, body = '', cycle = 0;
   const plan = lines.map(([cmd, outText]) => { const s = clock; clock += cmd.length * .07 + .5; const o = clock; clock += 1.1; return {cmd, outText, s, o}; });
   cycle = clock + 5;
@@ -245,7 +246,7 @@ function terminal(t) {
     const vals = ty.values.split(';'), keys = ty.keyTimes.split(';');
     body += `<clipPath id="c${i}"><rect x="${f(px)}" y="${y - 18}" height="26" width="0"><animate attributeName="width" dur="${f(cycle)}s" repeatCount="indefinite" calcMode="discrete" values="${vals.join(';')}" keyTimes="${keys.join(';')}"/></rect></clipPath>
     <g opacity="0"><animate attributeName="opacity" dur="${f(cycle)}s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;${f(p.s / cycle)}" values="0;1"/>
-      <text x="${x0}" y="${y}" font-size="${fs}" fill="${t.termAccent}" font-weight="700" xml:space="preserve">${prompt}</text></g>
+      <text x="${x0}" y="${y}" font-size="${fs}" fill="${t.termAccent}" font-weight="700" xml:space="preserve" textLength="${f(prompt.length * cw)}" lengthAdjust="spacing">${prompt}</text></g>
     <text clip-path="url(#c${i})" x="${f(px)}" y="${y}" font-size="${fs}" fill="${t.termInk}" textLength="${f(p.cmd.length * cw)}" lengthAdjust="spacing">${esc(p.cmd)}</text>
     <g opacity="0"><animate attributeName="opacity" dur="${f(cycle)}s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;${f(p.o / cycle)}" values="0;1"/>
       <text x="${x0}" y="${y + lh}" font-size="${fs}" fill="${i === 3 ? t.termOk : t.termDim}">${esc(p.outText)}</text></g>`;
@@ -260,7 +261,7 @@ function terminal(t) {
 <text x="${W / 2}" y="43" text-anchor="middle" font-size="13" fill="${t.termDim}">adi-01@lab — zsh</text>
 ${body}
 <g opacity="0"><animate attributeName="opacity" dur="${f(cycle)}s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;${f((clock - .3) / cycle)}" values="0;1"/>
-<text x="${x0}" y="${lastY}" font-size="${fs}" fill="${t.termAccent}" font-weight="700" xml:space="preserve">${prompt}</text>
+<text x="${x0}" y="${lastY}" font-size="${fs}" fill="${t.termAccent}" font-weight="700" xml:space="preserve" textLength="${f(prompt.length * cw)}" lengthAdjust="spacing">${prompt}</text>
 <rect class="caret" x="${f(px)}" y="${lastY - 16}" width="10" height="21" fill="${t.termInk}"/></g>
 </svg>
 `;
@@ -270,8 +271,8 @@ for (const t of Object.values(THEMES)) {
   const n = t.name;
   save(`assets/lab/hero-${n}.svg`, hero(t));
   save(`assets/lab/divider-${n}.svg`, divider(t));
-  [['01', 'Live room', 'updates hourly · click the buttons below'], ['02', 'Selected work', 'loops from the real case pictures'], ['03', 'In production', 'shipped for clients'],
-   ['04', 'Commit mountains', 'a year of commits as a ridge · redrawn hourly'], ['05', 'Toolbox', '']].forEach(([num, title, note]) => save(`assets/lab/h${num}-${n}.svg`, header(t, num, title, note)));
+  [['01', 'Live room', 'redrawn hourly · press the buttons'], ['02', 'Selected work', 'animated case art from adilkan.com'], ['03', 'In production', 'shipped for clients'],
+   ['04', 'Commit mountains', 'a year of contributions · hourly'], ['05', 'Toolbox', '']].forEach(([num, title, note]) => save(`assets/lab/h${num}-${n}.svg`, header(t, num, title, note)));
   save(`assets/lab/btn-lamp-${n}.svg`, button(t, 'Switch the lamp', '💡'));
   save(`assets/lab/btn-cat-${n}.svg`, button(t, 'Feed the cat', '🐟'));
   save(`assets/lab/btn-site-${n}.svg`, button(t, 'adilkan.com', '◎'));
@@ -279,7 +280,7 @@ for (const t of Object.values(THEMES)) {
   save(`assets/lab/btn-email-${n}.svg`, button(t, 'Email', '✉', {solid: false}));
   save(`assets/lab/btn-linkedin-${n}.svg`, button(t, 'LinkedIn', 'in', {solid: false}));
   save(`assets/lab/terminal-${n}.svg`, terminal(t));
-  for (const [name, alt] of [['adilkan', 'adilkan.com: a ghost cursor presses «Discuss a project» next to the glass droplet'], ['go-kyrgyzstan', 'Go Kyrgyzstan Travel: a booking request is sent and a Telegram notification pops up'],
+  for (const [name, alt] of [['adilkan', 'adilkan.com: a ghost cursor presses “Discuss a project” next to the glass droplet and the contacts appear'], ['go-kyrgyzstan', 'Go Kyrgyzstan Travel: a booking request is sent and a Telegram notification pops up'],
     ['eduprog', 'Eduprog: the current lesson moves down the schedule, attendance lights up, a new grade arrives'], ['lumen', 'Lumen Control: a tap in the app turns the lamp off, cat eyes glow in the dark, then the light comes back']])
     save(`assets/lab/card-${name}-${n}.svg`, card(t, name, alt));
 }

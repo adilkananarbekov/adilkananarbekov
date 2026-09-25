@@ -23,8 +23,8 @@ export const f = n => +n.toFixed(2);
 // Deterministic pseudo-random numbers so every build draws the same sparkles.
 export function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
 
-// Common <style> block: reduced motion stops everything.
-export const REDUCED = '@media (prefers-reduced-motion:reduce){*{animation:none!important}}';
+// Reduced motion: CSS animations stop; SMIL layers marked .motion are hidden (CSS cannot pause SMIL); fading marks stay readable.
+export const REDUCED = '@media (prefers-reduced-motion:reduce){*{animation:none!important}.motion{display:none}.zz,.heart{opacity:.8}}';
 
 // A cat sitting (base at 0,0, about 62 px tall), with blinking eyes and a swaying tail.
 export function cat(t, {scale = 1, id = 'c'} = {}) {
