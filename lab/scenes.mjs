@@ -28,6 +28,23 @@ export function skyAt(now = new Date()) {
 }
 const SKY = {night: ['#0b1026', '#232b63'], dawn: ['#93c5fd', '#fcd34d'], day: ['#60a5fa', '#dbeafe'], dusk: ['#6d28d9', '#fb923c']};
 
+// WMO weather codes (Open-Meteo) to what the window draws.
+export function weatherKind(code) {
+  if (code == null || Number.isNaN(code)) return null;
+  if (code === 0) return {kind: 'clear', label: 'clear'};
+  if (code <= 2) return {kind: 'partly', label: 'partly cloudy'};
+  if (code === 3) return {kind: 'overcast', label: 'overcast'};
+  if (code === 45 || code === 48) return {kind: 'fog', label: 'fog'};
+  if (code >= 51 && code <= 57) return {kind: 'drizzle', label: 'drizzle'};
+  if ((code >= 61 && code <= 67) || (code >= 80 && code <= 82)) return {kind: 'rain', label: 'rain'};
+  if ((code >= 71 && code <= 77) || code === 85 || code === 86) return {kind: 'snow', label: 'snow'};
+  if (code >= 95) return {kind: 'storm', label: 'thunderstorm'};
+  return {kind: 'partly', label: 'cloudy'};
+}
+const ICON = {clear: '☀', partly: '⛅', overcast: '☁', fog: '🌫', drizzle: '🌦', rain: '🌧', snow: '❄', storm: '⛈'};
+// Everything visitors did in the lab, for the plant on the shelf.
+export const actionsOf = st => (st.lamp?.toggles || 0) + (st.cat?.fed || 0) + (st.pets?.count || 0) + (st.stickers?.length || 0) + (st.ttt?.moves || 0);
+
 export function ago(iso, now = new Date()) {
   if (!iso) return 'never';
   const s = Math.max(0, (now - new Date(iso)) / 1000);
@@ -52,17 +69,18 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   // The sun moves between the real sunrise and sunset; the moon crosses the window during the night.
   const {k, isSun} = sky;
   const bx = wx + 24 + k * (ww - 48), by = wy + wh - 40 - Math.sin(Math.PI * k) * (wh - 80);
-  const r = rng(h * 60 + m), stars = phase === 'night' || phase === 'dusk' ? Array.from({length: phase === 'night' ? 26 : 10}, () => ({x: wx + 8 + r() * (ww - 16), y: wy + 8 + r() * (wh - 90), s: .6 + r() * 1.3, d: f(-r() * 3)})) : [];
+  const wk = weatherKind(state.weather?.code), wet = wk && ['drizzle', 'rain', 'storm'].includes(wk.kind), grey = wk && ['overcast', 'fog', 'drizzle', 'rain', 'snow', 'storm'].includes(wk.kind);
+  const r = rng(h * 60 + m), stars = (phase === 'night' || phase === 'dusk') && !grey ? Array.from({length: phase === 'night' ? 26 : 10}, () => ({x: wx + 8 + r() * (ww - 16), y: wy + 8 + r() * (wh - 90), s: .6 + r() * 1.3, d: f(-r() * 3)})) : [];
   const nick = s => (s && s.length > 13 ? s.slice(0, 12) + '…' : s);
   const roomDark = dark && !lamp ? .55 : dark ? .22 : 0;
   const wall = t.name === 'light' ? '#eef3f9' : '#15111c', desk = t.name === 'light' ? '#d6e0ec' : '#221a2d', deskEdge = t.name === 'light' ? '#c3d0e0' : '#2e2340';
   const moodText = {purring: 'purring · fed', peckish: 'peckish · fed', hungry: 'hungry! · fed', asleep: 'asleep · fed'}[mood];
   const lines = [
-    ['sky', `${isSun ? '☀' : '☾'} ${phase} · ${sky.rise}–${sky.set}`],
+    ['sky', wk ? `${wk.kind === 'clear' && !isSun ? '☾' : ICON[wk.kind]} ${Math.round(state.weather.temp)}°C · ${wk.label}` : `${isSun ? '☀' : '☾'} ${phase}`],
+    ['sun', `${phase} · ${sky.rise}–${sky.set}`],
     ['lamp', lamp ? `ON · by @${nick(state.lamp.by) || 'someone'}` : `off${state.lamp.by ? ` · by @${nick(state.lamp.by)}` : ''}`],
     ['cat', `${moodText} ${state.cat.fed}×`],
     ['last', state.cat.lastBy ? `@${nick(state.cat.lastBy)} · ${ago(state.cat.lastFedAt, now)}` : 'nobody yet — be first'],
-    ['gh', commits != null ? `${commits} public contrib./yr` : '—'],
     ['upd', `${day} ${MONTHS[mon - 1]} ${pad(h)}:${pad(m)} (UTC+6)`],
   ];
   const catX = 834, catY = 250, roomT = t.name === 'dark' ? {...t, cat: '#2d2440'} : t;
@@ -77,7 +95,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
        ${mood === 'purring' ? `<text class="heart" x="${catX + 20}" y="${catY - 70}" font-size="16">♥</text>` : ''}`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="title desc">
 <title id="title">Live room of the lab</title>
-<desc id="desc">Bishkek ${pad(h)}:${pad(m)}, ${phase}. The lamp is ${lamp ? 'on' : 'off'}. The cat is ${mood} and has been fed ${state.cat.fed === 1 ? 'once' : `${state.cat.fed} times`}.</desc>
+<desc id="desc">Bishkek ${pad(h)}:${pad(m)}, ${phase}${wk ? `, ${Math.round(state.weather.temp)}°C, ${wk.label}` : ''}. The lamp is ${lamp ? 'on' : 'off'}. The cat is ${mood} and has been fed ${state.cat.fed === 1 ? 'once' : `${state.cat.fed} times`}.</desc>
 <defs>
   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sk0}"/><stop offset="1" stop-color="${sk1}"/></linearGradient>
   <radialGradient id="cone" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fde68a" stop-opacity="${dark ? .75 : .35}"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient>
@@ -89,6 +107,10 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   <style>
     .t{font-family:${SANS}}.m{font-family:${MONO}}
     .tw{animation:tw 3s ease-in-out infinite}@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+    .rain{animation:rain .6s linear infinite}@keyframes rain{from{transform:translate(0,0)}to{transform:translate(-15px,${wh}px)}}
+    .snow{animation:snow 9s linear infinite}@keyframes snow{from{transform:translate(0,0)}to{transform:translate(18px,${wh}px)}}
+    .fog{animation:fog 16s ease-in-out infinite alternate}@keyframes fog{from{transform:translateX(0)}to{transform:translateX(120px)}}
+    .flash{animation:flash 7s steps(1) infinite}@keyframes flash{0%,88%,90%,92%,100%{opacity:0}89%,91%{opacity:.85}}
     .cloud{animation:cloud 40s linear infinite}@keyframes cloud{from{transform:translateX(-120px)}to{transform:translateX(420px)}}
     .code{animation:code 2.6s steps(6) infinite;transform-box:fill-box;transform-origin:0 50%}@keyframes code{from{transform:scaleX(.1)}to{transform:scaleX(1)}}
     .live{animation:live 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes live{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.3}}
@@ -108,9 +130,14 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   <g clip-path="url(#win)">
     <rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="url(#sky)"/>
     ${stars.map(s => `<circle class="tw" style="animation-delay:${s.d}s" cx="${f(s.x)}" cy="${f(s.y)}" r="${f(s.s)}" fill="#fff"/>`).join('')}
-    ${isSun ? `<circle cx="${f(bx)}" cy="${f(by)}" r="34" fill="#fde68a" opacity=".35"/><circle cx="${f(bx)}" cy="${f(by)}" r="20" fill="#fcd34d"/>`
+    ${isSun ? `<g opacity="${grey ? .3 : 1}"><circle cx="${f(bx)}" cy="${f(by)}" r="34" fill="#fde68a" opacity=".35"/><circle cx="${f(bx)}" cy="${f(by)}" r="20" fill="#fcd34d"/></g>`
       : `<circle cx="${f(bx)}" cy="${f(by)}" r="18" fill="#f1f5f9"/><circle cx="${f(bx + 8)}" cy="${f(by - 5)}" r="15" fill="${sk0}"/>`}
-    ${phase === 'day' || phase === 'dawn' ? `<g class="cloud" opacity=".85"><ellipse cx="${wx + 40}" cy="${wy + 52}" rx="34" ry="11" fill="#fff"/><ellipse cx="${wx + 62}" cy="${wy + 45}" rx="22" ry="12" fill="#fff"/></g>` : ''}
+    ${grey ? `<rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#64748b" opacity="${wk.kind === 'storm' ? .5 : .32}"/>` : ''}
+    ${(!wk && (phase === 'day' || phase === 'dawn')) || (wk && wk.kind !== 'clear' && wk.kind !== 'fog') ? Array.from({length: !wk || wk.kind === 'partly' ? 1 : 3}, (_, i) => `<g class="cloud" style="animation-duration:${40 + i * 14}s;animation-delay:-${i * 17}s" opacity="${grey ? .7 : .85}"><ellipse cx="${wx + 40}" cy="${wy + 30 + i * 26}" rx="${34 + i * 6}" ry="11" fill="${grey ? '#cbd5e1' : '#fff'}"/><ellipse cx="${wx + 62}" cy="${wy + 23 + i * 26}" rx="22" ry="12" fill="${grey ? '#e2e8f0' : '#fff'}"/></g>`).join('') : ''}
+    ${wet ? `<g class="rain" style="animation-duration:${wk.kind === 'drizzle' ? 1.3 : .6}s">${Array.from({length: wk.kind === 'drizzle' ? 24 : 48}, () => { const x = wx + r() * ww, y = wy - wh + r() * wh * 2; return `<path d="M${f(x)} ${f(y)}l-3 12" stroke="${t.name === 'light' ? '#1e3a8a' : '#bfdbfe'}" stroke-width="1.6" stroke-linecap="round" opacity="${t.name === 'light' ? .45 : .75}"/>`; }).join('')}</g>` : ''}
+    ${wk && wk.kind === 'snow' ? `<g class="snow">${Array.from({length: 40}, () => { const x = wx + r() * ww, y = wy - wh + r() * wh * 2; return `<circle cx="${f(x)}" cy="${f(y)}" r="${f(1.2 + r() * 1.8)}" fill="#fff" stroke="#94a3b8" stroke-width=".6" opacity=".95"/>`; }).join('')}</g>` : ''}
+    ${wk && wk.kind === 'fog' ? [0, 1, 2].map(i => `<rect class="fog" style="animation-delay:-${i * 5}s" x="${wx - 120}" y="${wy + 60 + i * 38}" width="${ww + 40}" height="22" rx="11" fill="#fff" opacity=".35"/>`).join('') : ''}
+    ${wk && wk.kind === 'storm' ? `<rect class="flash" x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#fff" opacity="0"/><path class="flash" d="M${wx + 250} ${wy + 20}l-18 44h14l-16 42 34-54h-15l14-32z" fill="#fde68a" opacity="0"/>` : ''}
     <path d="M${wx} ${wy + wh}V${wy + 150}l52-38 40 22 64-52 48 36 36-18 60 44 40-20 20 12V${wy + wh}z" fill="${dark ? '#1b1f3a' : '#94a3b8'}" opacity=".9"/>
     <path d="M${wx + 88} ${wy + 120}l24-9 16 12M${wx + 212} ${wy + 106}l16-10 14 10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="${dark ? .35 : .8}"/>
   </g>
@@ -127,7 +154,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
     <text x="64" y="84" text-anchor="middle" font-family="${MONO}" font-size="10.5" font-weight="700" fill="${t.soft}">idea → product</text></g>
   <rect x="784" y="146" width="92" height="6" rx="3" fill="${deskEdge}"/>
   <rect x="790" y="118" width="9" height="28" rx="2" fill="${t.a}"/><rect x="801" y="122" width="8" height="24" rx="2" fill="${t.b}"/><rect x="811" y="126" width="10" height="20" rx="2" fill="${t.soft}"/>
-  <g class="leaf"><path d="M852 124c-10-8-12-18-6-24 6 6 8 16 6 24zM852 124c6-10 16-14 22-10-4 8-14 12-22 10zM852 124c-12-2-20 2-22 8 8 3 17 0 22-8z" fill="#22c55e"/></g>
+  <g transform="translate(852 124) scale(${f(1 + Math.min(.9, Math.log10(1 + actionsOf(state)) * .45))}) translate(-852 -124)"><g class="leaf"><path d="M852 124c-10-8-12-18-6-24 6 6 8 16 6 24zM852 124c6-10 16-14 22-10-4 8-14 12-22 10zM852 124c-12-2-20 2-22 8 8 3 17 0 22-8z" fill="#22c55e"/></g></g>
   <path d="M842 124h20l-3 22h-14z" fill="#c2410c"/>
   <rect x="0" y="250" width="${W}" height="80" fill="${desk}"/><rect x="0" y="250" width="${W}" height="4" fill="${deskEdge}"/>
   <!-- the room gets dark at night unless someone switched the lamp on -->

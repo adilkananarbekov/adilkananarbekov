@@ -160,6 +160,21 @@ function button(t, label, icon, {w = null, solid = true} = {}) {
 `;
 }
 
+/* ---------- Round sticker buttons (one per sticker, each its own link) ---------- */
+function stickerButton(t, emoji, i) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84" role="img" aria-label="Sticker ${emoji}">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.a}"/><stop offset="1" stop-color="${t.b}"/></linearGradient>
+<style>.b{animation:b 3.2s ease-in-out infinite;animation-delay:-${f(i * .4)}s;transform-box:fill-box;transform-origin:center}
+@keyframes b{0%,70%,100%{transform:rotate(0) scale(1)}78%{transform:rotate(-14deg) scale(1.12)}86%{transform:rotate(10deg) scale(1.05)}}
+.r{animation:r 3.2s ease-out infinite;animation-delay:-${f(i * .4)}s;transform-box:fill-box;transform-origin:center;opacity:0}
+@keyframes r{0%,70%{transform:scale(1);opacity:0}74%{opacity:.7}100%{transform:scale(1.25);opacity:0}}${REDUCED}</style></defs>
+<circle class="r" cx="42" cy="42" r="33" fill="none" stroke="${t.a}" stroke-width="2"/>
+<circle cx="42" cy="42" r="33" fill="${t.panel}" stroke="url(#g)" stroke-width="2.5"/>
+<text class="b" x="42" y="54" text-anchor="middle" font-size="32">${emoji}</text>
+</svg>
+`;
+}
+
 /* ---------- Project cards: the case pictures from adilkan.com with a ghost cursor that uses them ---------- */
 const CURSOR = `<path d="M0 0v23l6-5 4.4 9.6 4.2-1.9-4.3-9.4H18z" fill="#fff" stroke="#0e1726" stroke-width="1.6" stroke-linejoin="round"/>`;
 function cursorAnim(from, to, dur, moveEnd, stayEnd) {
@@ -272,9 +287,11 @@ for (const t of Object.values(THEMES)) {
   save(`assets/lab/hero-${n}.svg`, hero(t));
   save(`assets/lab/divider-${n}.svg`, divider(t));
   [['01', 'Live room', 'redrawn hourly · press the buttons'], ['02', 'Selected work', 'animated case art from adilkan.com'], ['03', 'In production', 'shipped for clients'],
-   ['04', 'Commit mountains', 'a year of contributions · hourly'], ['05', 'Toolbox', '']].forEach(([num, title, note]) => save(`assets/lab/h${num}-${n}.svg`, header(t, num, title, note)));
+   ['04', 'Commit mountains', 'a year of contributions · hourly'], ['05', 'Toolbox', ''], ['06', 'Play with the cat', 'tic-tac-toe · you ✕, the cat 🐾'], ['07', 'Leave a mark', 'a sticker wall for visitors']].forEach(([num, title, note]) => save(`assets/lab/h${num}-${n}.svg`, header(t, num, title, note)));
   save(`assets/lab/btn-lamp-${n}.svg`, button(t, 'Switch the lamp', '💡'));
   save(`assets/lab/btn-cat-${n}.svg`, button(t, 'Feed the cat', '🐟'));
+  save(`assets/lab/btn-pet-${n}.svg`, button(t, 'Pet the cat', '😽'));
+  Object.entries({rocket: '🚀', coffee: '☕', cat: '🐱', bulb: '💡', fire: '🔥', star: '⭐', heart: '💜', wave: '👋'}).forEach(([k, e], i) => save(`assets/lab/sticker-${k}-${n}.svg`, stickerButton(t, e, i)));
   save(`assets/lab/btn-site-${n}.svg`, button(t, 'adilkan.com', '◎'));
   save(`assets/lab/btn-telegram-${n}.svg`, button(t, 'Telegram', '✈', {solid: false}));
   save(`assets/lab/btn-email-${n}.svg`, button(t, 'Email', '✉', {solid: false}));
