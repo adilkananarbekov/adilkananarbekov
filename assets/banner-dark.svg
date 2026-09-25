@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+<title id="title">Adilkan Anarbekov — web and Flutter developer</title>
+<desc id="desc">From idea to a working product. Bishkek, Kyrgyzstan.</desc>
+<defs>
+  <linearGradient id="ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e11d48"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+  <radialGradient id="drop" cx="36%" cy="30%" r="78%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset=".28" stop-color="#fbcfe8"/>
+    <stop offset=".68" stop-color="#e11d48"/><stop offset="1" stop-color="#3b0764"/>
+  </radialGradient>
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e11d48" stop-opacity="0.22"/><stop offset="1" stop-color="#e11d48" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glow2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7c3aed" stop-opacity="0.17600000000000002"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d0b12"/><stop offset="1" stop-color="#17111f"/></linearGradient>
+  <clipPath id="frame"><rect width="1200" height="320" rx="22"/></clipPath>
+  <style>
+    .t{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif}
+    .float{animation:float 7s ease-in-out infinite}
+    .shadow{animation:shadow 7s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+    .eye{animation:blink 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+    .tail{animation:tail 4s ease-in-out infinite;transform-box:fill-box;transform-origin:0% 100%}
+    .spark{animation:spark 3.6s ease-in-out infinite}
+    .s2{animation-delay:1.2s}.s3{animation-delay:2.4s}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes shadow{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.86);opacity:.7}}
+    @keyframes blink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.12)}}
+    @keyframes tail{0%,100%{transform:rotate(0)}50%{transform:rotate(-12deg)}}
+    @keyframes spark{0%,100%{opacity:.15}50%{opacity:.9}}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+</defs>
+<g clip-path="url(#frame)">
+  <rect width="1200" height="320" fill="url(#sky)"/>
+  <circle cx="988" cy="166" r="300" fill="url(#glow)"/>
+  <circle cx="778" cy="286" r="220" fill="url(#glow2)"/>
+  <path d="M0 320V246l96-40 88 30 118-66 104 58 96-44 120 64 92-38 118 50 110-58 112 46 104-34 142 54v68z" fill="#1a1424"/>
+  <path d="M0 320v-40l140-26 124 22 150-36 130 30 160-24 130 26 150-30 140 24 176-22v76z" fill="#231a31"/>
+  <circle class="spark" cx="760" cy="70" r="2.4" fill="#f472b6"/>
+  <circle class="spark s2" cx="1120" cy="92" r="2" fill="#f472b6"/>
+  <circle class="spark s3" cx="1080" cy="238" r="2.6" fill="#f472b6"/>
+  <circle class="spark s2" cx="820" cy="210" r="1.8" fill="#f472b6"/>
+
+  <text x="64" y="86" class="t" font-size="15" font-weight="600" letter-spacing="3" fill="#a39bb4">ADILKAN ANARBEKOV · BISHKEK, KYRGYZSTAN</text>
+  <text x="62" y="152" class="t" font-size="54" font-weight="800" fill="#f2eff7">From idea</text>
+  <text x="62" y="212" class="t" font-size="54" font-weight="800" fill="url(#ink)">to a working product.</text>
+  <text x="64" y="256" class="t" font-size="19" fill="#cfc8dc">Web &amp; Flutter developer · interfaces and integrations</text>
+
+  <ellipse class="shadow" cx="968" cy="282" rx="70" ry="9" fill="rgba(0,0,0,.55)"/>
+  <g class="float">
+    <circle cx="968" cy="166" r="82" fill="url(#drop)"/>
+    <ellipse cx="938" cy="128" rx="26" ry="15" fill="#fff" opacity=".55" transform="rotate(-28 938 128)"/>
+    <circle cx="1002" cy="206" r="8" fill="#fff" opacity=".18"/>
+    <g transform="translate(974 88)">
+      <path class="tail" d="M13 -4c20 2 25-16 16-26" fill="none" stroke="#050308" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="0" cy="-16" rx="16" ry="17" fill="#050308"/>
+      <circle cx="0" cy="-40" r="13" fill="#050308"/>
+      <path d="M-12 -45l2-15 8 9zM12 -45l-2-15-8 9z" fill="#050308"/>
+      <ellipse class="eye" cx="-5" cy="-41" rx="2.3" ry="2.9" fill="#facc15"/>
+      <ellipse class="eye" cx="5" cy="-41" rx="2.3" ry="2.9" fill="#facc15"/>
+    </g>
+  </g>
+</g>
+</svg>
