@@ -1,0 +1,40 @@
+name: lab
+
+# The profile's live room: redraws the pictures every hour and when a visitor presses a README button
+# (an issue titled "lab: switch the lamp" or "lab: feed the cat"). Output goes to the lab-output branch.
+on:
+  schedule:
+    - cron: '17 * * * *'
+  issues:
+    types: [opened]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: lab
+  cancel-in-progress: false
+
+jobs:
+  lab:
+    if: github.event_name != 'issues' || startsWith(github.event.issue.title, 'lab:')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Redraw the lab
+        run: node lab/run.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}

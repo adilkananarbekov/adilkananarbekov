@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="44" viewBox="0 0 1200 44" aria-hidden="true">
+<defs><linearGradient id="l" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#e11d48" stop-opacity="0"/><stop offset=".45" stop-color="#e11d48"/><stop offset=".8" stop-color="#7c3aed"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+</linearGradient>
+<style>.rp{animation:rp 6s ease-out infinite;animation-delay:2.8s;transform-box:fill-box;transform-origin:center;opacity:0}
+.rp2{animation-delay:3s}.rp3{animation-delay:3.25s}
+@keyframes rp{0%{transform:scale(.05);opacity:0}4%{opacity:.9}40%{transform:scale(1);opacity:0}100%{opacity:0}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect x="60" y="21.5" width="1080" height="1" fill="url(#l)"/>
+<ellipse class="rp" cx="960" cy="22" rx="46" ry="9" fill="none" stroke="#e11d48" stroke-width="1.5"/>
+<ellipse class="rp rp2" cx="960" cy="22" rx="30" ry="6" fill="none" stroke="#7c3aed" stroke-width="1.2"/>
+<ellipse class="rp rp3" cx="960" cy="22" rx="16" ry="3.5" fill="none" stroke="#e11d48"/>
+</svg>

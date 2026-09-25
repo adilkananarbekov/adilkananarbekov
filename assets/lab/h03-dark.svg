@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="64" viewBox="0 0 1200 64" role="img" aria-label="Lab 03: In production">
+<defs><linearGradient id="h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e11d48" stop-opacity="0"/><stop offset=".5" stop-color="#e11d48"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></linearGradient>
+<style>.scan{animation:scan 5s ease-in-out infinite}@keyframes scan{0%{transform:translateX(0)}100%{transform:translateX(805.5px)}}
+.blip{animation:blip 2.4s ease-in-out infinite}@keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect x="20" y="18" width="94" height="30" rx="8" fill="none" stroke="#e11d48" stroke-opacity=".55"/>
+<circle class="blip" cx="34" cy="33" r="4" fill="#e11d48"/>
+<text x="46" y="38.5" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',Menlo,monospace" font-size="14" font-weight="700" fill="#e11d48">LAB/03</text>
+<text x="132" y="42" font-family="'Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="800" fill="#f2eff7">In production</text>
+<rect x="344.5" y="32.5" width="835.5" height="1" fill="#2a2236"/>
+<rect class="scan" x="344.5" y="31.5" width="60" height="3" rx="1.5" fill="url(#h)"/>
+<text x="1180" y="22" text-anchor="end" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',Menlo,monospace" font-size="12" fill="#a39bb4">shipped for clients</text>
+</svg>
