@@ -1,7 +1,7 @@
 name: lab
 
-# The profile's live room: redraws the pictures every hour and when a visitor presses a README button
-# (an issue titled "lab: switch the lamp" or "lab: feed the cat"). Output goes to the lab-output branch.
+# The profile's lab: redraws the live pictures every hour and when a visitor presses a README button
+# (any issue titled "lab: …": lamp, feed, pet, ttt 1-9, sticker <name>). Output goes to the lab-output branch.
 # Each run applies every open "lab:" issue, so runs that GitHub drops from the concurrency queue lose nothing.
 on:
   schedule:

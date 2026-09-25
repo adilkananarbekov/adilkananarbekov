@@ -10,7 +10,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {THEMES} from './palette.mjs';
 import {liveRoom, mountains, bishkek, skyAt, catMood} from './scenes.mjs';
-import {winner, catMove, tttCell, tttStatus, stickerWall, footerCat, STICKERS} from './games.mjs';
+import {winner, catMove, tttCell, tttStatus, stickerWall, footerCat, STICKERS, isSticker} from './games.mjs';
 
 const REPO = process.env.REPO || 'adilkananarbekov/adilkananarbekov';
 const LOGIN = REPO.split('/')[0];
@@ -37,21 +37,27 @@ const EMPTY = {
   v: 2, lamp: {on: false, by: null, at: null, toggles: 0}, cat: {fed: 0, lastFedAt: null, lastBy: null, feeders: []},
   pets: {count: 0, by: null, at: null},
   ttt: {board: newBoard(), score: {x: 0, o: 0, draw: 0}, result: null, last: null, lastCat: null, lastBy: null, moves: 0, games: 0, distracted: false},
-  stickers: [], weather: null, contrib: null, handled: [],
+  stickers: [], stickerTotal: 0, stickerVisitors: [], weather: null, contrib: null, handled: [],
 };
 let state = structuredClone(EMPTY);
 try {
   const file = await api(`/repos/${REPO}/contents/state.json?ref=${BRANCH}`);
   const p = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
   const o = x => (x && typeof x === 'object' && !Array.isArray(x) ? x : {});
+  const num = x => (Number.isFinite(x) && x >= 0 ? Math.floor(x) : 0);
+  const w = o(p.weather);
   const t = o(p.ttt), board = Array.isArray(t.board) && t.board.length === 9 ? t.board.map(v => (v === 'x' || v === 'o' ? v : '')) : newBoard();
   state = {
-    ...EMPTY, ...o(p),
-    lamp: {...EMPTY.lamp, ...o(p.lamp)},
-    cat: {...EMPTY.cat, ...o(p.cat), feeders: Array.isArray(p.cat?.feeders) ? p.cat.feeders.filter(u => typeof u === 'string') : []},
-    pets: {...EMPTY.pets, ...o(p.pets)},
-    ttt: {...EMPTY.ttt, ...t, board, score: {...EMPTY.ttt.score, ...o(t.score)}, result: winner(board)},
-    stickers: Array.isArray(p.stickers) ? p.stickers.filter(s => s && STICKERS[s.e] && typeof s.by === 'string').slice(-MAX_STICKERS) : [],
+    ...EMPTY, ...o(p), v: EMPTY.v,
+    lamp: {...EMPTY.lamp, ...o(p.lamp), toggles: num(p.lamp?.toggles)},
+    cat: {...EMPTY.cat, ...o(p.cat), fed: num(p.cat?.fed), feeders: Array.isArray(p.cat?.feeders) ? p.cat.feeders.filter(u => typeof u === 'string') : []},
+    pets: {...EMPTY.pets, ...o(p.pets), count: num(p.pets?.count)},
+    ttt: {...EMPTY.ttt, ...t, board, moves: num(t.moves), games: num(t.games), score: {x: num(t.score?.x), o: num(t.score?.o), draw: num(t.score?.draw)}, result: winner(board),
+      last: Number.isInteger(t.last) ? t.last : null, lastCat: Number.isInteger(t.lastCat) ? t.lastCat : null},
+    stickers: Array.isArray(p.stickers) ? p.stickers.filter(s => s && isSticker(s.e) && typeof s.by === 'string' && Number.isInteger(s.n) && s.n > 0 && !Number.isNaN(Date.parse(s.at))).slice(-MAX_STICKERS) : [],
+    stickerTotal: num(p.stickerTotal),
+    stickerVisitors: Array.isArray(p.stickerVisitors) ? p.stickerVisitors.filter(u => typeof u === 'string').slice(-5000) : [],
+    weather: Number.isFinite(w.temp) && Number.isInteger(w.code) && !Number.isNaN(Date.parse(w.at)) ? {temp: w.temp, code: w.code, at: w.at} : null,
     contrib: Array.isArray(p.contrib?.weeks) ? p.contrib : null,
     handled: Array.isArray(p.handled) ? p.handled.filter(Number.isInteger) : [],
   };
@@ -83,11 +89,14 @@ function apply(title, user, t, number) {
   }
   if ((m = cmd.match(/^sticker\s+([a-z]+)/))) {
     const e = m[1];
-    if (!STICKERS[e]) return {body: `Unknown sticker. Try one of: ${Object.keys(STICKERS).join(', ')}.`, reason: 'not_planned'};
+    if (!isSticker(e)) return {body: `Unknown sticker. Try one of: ${Object.keys(STICKERS).join(', ')}.`, reason: 'not_planned'};
     const mine = state.stickers.filter(s => s.by === user).pop();
     if (mine && recent(user, mine.at)) return {body: `📌 Your last sticker is still drying, @${user}. Try again in a few minutes!`};
-    state.stickers = [...state.stickers, {n: number, e, by: user, at: t.toISOString()}].slice(-MAX_STICKERS);
-    return {body: `${STICKERS[e]} Stuck to the wall, @${user}! It shows up in the profile README within about five minutes.`};
+    // one sticker per visitor: a new press replaces your previous one
+    state.stickers = [...state.stickers.filter(s => s.by !== user), {n: number, e, by: user, at: t.toISOString()}].slice(-MAX_STICKERS);
+    state.stickerTotal++;
+    if (!state.stickerVisitors.includes(user)) state.stickerVisitors = [...state.stickerVisitors, user].slice(-5000);
+    return {body: `${STICKERS[e]} ${mine ? 'Swapped your sticker' : 'Stuck to the wall'}, @${user}! It shows up in the profile README within about five minutes.`};
   }
   if (/^pet\b|погладь/.test(cmd)) {
     if (recent(state.pets.by, state.pets.at, PET_COOLDOWN)) return {body: `😽 The cat is still purring from the last time, @${user}.`};
@@ -104,13 +113,19 @@ function apply(title, user, t, number) {
     state.cat = {fed: (state.cat.fed || 0) + 1, lastFedAt: t.toISOString(), lastBy: user, feeders: [user, ...state.cat.feeders.filter(u => u !== user)].slice(0, 5)};
     return {body: `🐟 *Nom nom.* The cat has been fed **${times(state.cat.fed)}** — and it remembers you, @${user}.\n\nThe live room in the profile README updates within about five minutes (GitHub caches images).`};
   }
-  return {body: 'The lab bot knows: **lab: switch the lamp**, **lab: feed the cat**, **lab: pet the cat**, **lab: ttt 1…9** and **lab: sticker <name>**. The buttons in the profile README fill them in for you 🙂', reason: 'not_planned'};
+  return {body: `The lab bot knows: \`lab: switch the lamp\`, \`lab: feed the cat\`, \`lab: pet the cat\`, \`lab: ttt 1…9\` and \`lab: sticker ${Object.keys(STICKERS).join('|')}\`. The buttons in the profile README fill them in for you 🙂`, reason: 'not_planned'};
 }
 
 const replies = [];
-const open = (await api(`/repos/${REPO}/issues?state=open&sort=created&direction=asc&per_page=50`))
-  .filter(i => !i.pull_request && String(i.title).toLowerCase().startsWith('lab:') && !state.handled.includes(i.number))
-  .slice(0, MAX_PER_RUN);
+// Up to 300 oldest open issues; lab issues already handled but still open (their answer failed earlier) are only closed, never applied again.
+const openLab = [];
+for (let page = 1; page <= 3; page++) {
+  const batch = await api(`/repos/${REPO}/issues?state=open&sort=created&direction=asc&per_page=100&page=${page}`);
+  openLab.push(...batch.filter(i => !i.pull_request && String(i.title).toLowerCase().startsWith('lab:')));
+  if (batch.length < 100) break;
+}
+const stuck = openLab.filter(i => state.handled.includes(i.number));
+const open = openLab.filter(i => !state.handled.includes(i.number)).slice(0, MAX_PER_RUN);
 for (const i of open) {
   const user = cleanLogin(i.user?.login);
   const r = IGNORE.has(user) || /\[bot\]$/.test(i.user?.login || '') ? {body: 'Thanks! 🙂'} : apply(String(i.title).toLowerCase(), user, new Date(i.created_at), i.number);
@@ -142,7 +157,7 @@ for (const t of Object.values(THEMES)) {
   w('live', liveRoom(t, state, now, state.contrib.total));
   w('mountains', mountains(t, state.contrib.weeks, state.contrib.total));
   w('cat', footerCat(t, state, now));
-  w('wall', stickerWall(t, state.stickers, now));
+  w('wall', stickerWall(t, state.stickers, now, {marks: state.stickerTotal, visitors: state.stickerVisitors.length}));
   w('ttt-status', tttStatus(t, state.ttt));
   for (let i = 0; i < 9; i++) w(`ttt-${i + 1}`, tttCell(t, state.ttt, i));
 }
@@ -164,6 +179,9 @@ rmSync(dir, {recursive: true, force: true});
 console.log(`published ${BRANCH}: ${replies.length} action(s), lamp ${state.lamp.on ? 'on' : 'off'}, fed ${state.cat.fed}, pets ${state.pets.count}, stickers ${state.stickers.length}, ttt moves ${state.ttt.moves}, weather ${state.weather ? state.weather.code : '—'}`);
 
 // 6. Answer the visitors (after the push, so a failure here never loses an action; handled numbers keep it from repeating).
+for (const i of stuck) {
+  try { await api(`/repos/${REPO}/issues/${i.number}`, {method: 'PATCH', body: JSON.stringify({state: 'closed', state_reason: 'completed'})}); } catch (e) { console.log(`could not close #${i.number}: ${e.message}`); }
+}
 for (const r of replies) {
   try {
     await api(`/repos/${REPO}/issues/${r.number}/comments`, {method: 'POST', body: JSON.stringify({body: r.body})});

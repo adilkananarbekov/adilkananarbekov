@@ -32,7 +32,8 @@ const SKY = {night: ['#0b1026', '#232b63'], dawn: ['#93c5fd', '#fcd34d'], day: [
 export function weatherKind(code) {
   if (code == null || Number.isNaN(code)) return null;
   if (code === 0) return {kind: 'clear', label: 'clear'};
-  if (code <= 2) return {kind: 'partly', label: 'partly cloudy'};
+  if (code === 1) return {kind: 'partly', label: 'mainly clear'};
+  if (code === 2) return {kind: 'partly', label: 'partly cloudy'};
   if (code === 3) return {kind: 'overcast', label: 'overcast'};
   if (code === 45 || code === 48) return {kind: 'fog', label: 'fog'};
   if (code >= 51 && code <= 57) return {kind: 'drizzle', label: 'drizzle'};
@@ -41,7 +42,8 @@ export function weatherKind(code) {
   if (code >= 95) return {kind: 'storm', label: 'thunderstorm'};
   return {kind: 'partly', label: 'cloudy'};
 }
-const ICON = {clear: '☀', partly: '⛅', overcast: '☁', fog: '🌫', drizzle: '🌦', rain: '🌧', snow: '❄', storm: '⛈'};
+const ICON = {clear: '☀️', partly: '⛅', overcast: '☁️', fog: '🌫️', drizzle: '🌦️', rain: '🌧️', snow: '❄️', storm: '⛈️'};
+const NIGHT_ICON = {clear: '🌙', partly: '☁️', drizzle: '🌧️'};
 // Everything visitors did in the lab, for the plant on the shelf.
 export const actionsOf = st => (st.lamp?.toggles || 0) + (st.cat?.fed || 0) + (st.pets?.count || 0) + (st.stickers?.length || 0) + (st.ttt?.moves || 0);
 
@@ -76,7 +78,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   const wall = t.name === 'light' ? '#eef3f9' : '#15111c', desk = t.name === 'light' ? '#d6e0ec' : '#221a2d', deskEdge = t.name === 'light' ? '#c3d0e0' : '#2e2340';
   const moodText = {purring: 'purring · fed', peckish: 'peckish · fed', hungry: 'hungry! · fed', asleep: 'asleep · fed'}[mood];
   const lines = [
-    ['sky', wk ? `${wk.kind === 'clear' && !isSun ? '☾' : ICON[wk.kind]} ${Math.round(state.weather.temp)}°C · ${wk.label}` : `${isSun ? '☀' : '☾'} ${phase}`],
+    ['sky', wk ? `${(!isSun && NIGHT_ICON[wk.kind]) || ICON[wk.kind]} ${Math.round(state.weather.temp)}°C · ${wk.label}` : `${isSun ? '☀️' : '🌙'} ${phase}`],
     ['sun', `${phase} · ${sky.rise}–${sky.set}`],
     ['lamp', lamp ? `ON · by @${nick(state.lamp.by) || 'someone'}` : `off${state.lamp.by ? ` · by @${nick(state.lamp.by)}` : ''}`],
     ['cat', `${moodText} ${state.cat.fed}×`],
@@ -134,8 +136,8 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
       : `<circle cx="${f(bx)}" cy="${f(by)}" r="18" fill="#f1f5f9"/><circle cx="${f(bx + 8)}" cy="${f(by - 5)}" r="15" fill="${sk0}"/>`}
     ${grey ? `<rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#64748b" opacity="${wk.kind === 'storm' ? .5 : .32}"/>` : ''}
     ${(!wk && (phase === 'day' || phase === 'dawn')) || (wk && wk.kind !== 'clear' && wk.kind !== 'fog') ? Array.from({length: !wk || wk.kind === 'partly' ? 1 : 3}, (_, i) => `<g class="cloud" style="animation-duration:${40 + i * 14}s;animation-delay:-${i * 17}s" opacity="${grey ? .7 : .85}"><ellipse cx="${wx + 40}" cy="${wy + 30 + i * 26}" rx="${34 + i * 6}" ry="11" fill="${grey ? '#cbd5e1' : '#fff'}"/><ellipse cx="${wx + 62}" cy="${wy + 23 + i * 26}" rx="22" ry="12" fill="${grey ? '#e2e8f0' : '#fff'}"/></g>`).join('') : ''}
-    ${wet ? `<g class="rain" style="animation-duration:${wk.kind === 'drizzle' ? 1.3 : .6}s">${Array.from({length: wk.kind === 'drizzle' ? 24 : 48}, () => { const x = wx + r() * ww, y = wy - wh + r() * wh * 2; return `<path d="M${f(x)} ${f(y)}l-3 12" stroke="${t.name === 'light' ? '#1e3a8a' : '#bfdbfe'}" stroke-width="1.6" stroke-linecap="round" opacity="${t.name === 'light' ? .45 : .75}"/>`; }).join('')}</g>` : ''}
-    ${wk && wk.kind === 'snow' ? `<g class="snow">${Array.from({length: 40}, () => { const x = wx + r() * ww, y = wy - wh + r() * wh * 2; return `<circle cx="${f(x)}" cy="${f(y)}" r="${f(1.2 + r() * 1.8)}" fill="#fff" stroke="#94a3b8" stroke-width=".6" opacity=".95"/>`; }).join('')}</g>` : ''}
+    ${wet ? `<g class="rain" style="animation-duration:${wk.kind === 'drizzle' ? 1.3 : .6}s">${Array.from({length: wk.kind === 'drizzle' ? 24 : 48}, (_, j) => { const x = wx + r() * (ww + 15), y = wy + (j % 2 ? wh : 0) - r() * wh; return `<path d="M${f(x)} ${f(y)}l-3 12M${f(x + 15)} ${f(y - wh)}l-3 12" stroke="${dark ? '#bfdbfe' : '#1e3a8a'}" stroke-width="1.6" stroke-linecap="round" opacity="${dark ? .75 : .45}"/>`; }).join('')}</g>` : ''}
+    ${wk && wk.kind === 'snow' ? `<g class="snow">${Array.from({length: 30}, () => { const x = wx - 18 + r() * (ww + 18), y = wy + r() * wh; const rr = f(1.2 + r() * 1.8); return `<circle cx="${f(x)}" cy="${f(y)}" r="${rr}" fill="#fff" stroke="#94a3b8" stroke-width=".6" opacity=".95"/><circle cx="${f(x - 18)}" cy="${f(y - wh)}" r="${rr}" fill="#fff" stroke="#94a3b8" stroke-width=".6" opacity=".95"/>`; }).join('')}</g>` : ''}
     ${wk && wk.kind === 'fog' ? [0, 1, 2].map(i => `<rect class="fog" style="animation-delay:-${i * 5}s" x="${wx - 120}" y="${wy + 60 + i * 38}" width="${ww + 40}" height="22" rx="11" fill="#fff" opacity=".35"/>`).join('') : ''}
     ${wk && wk.kind === 'storm' ? `<rect class="flash" x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#fff" opacity="0"/><path class="flash" d="M${wx + 250} ${wy + 20}l-18 44h14l-16 42 34-54h-15l14-32z" fill="#fde68a" opacity="0"/>` : ''}
     <path d="M${wx} ${wy + wh}V${wy + 150}l52-38 40 22 64-52 48 36 36-18 60 44 40-20 20 12V${wy + wh}z" fill="${dark ? '#1b1f3a' : '#94a3b8'}" opacity=".9"/>
@@ -154,7 +156,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
     <text x="64" y="84" text-anchor="middle" font-family="${MONO}" font-size="10.5" font-weight="700" fill="${t.soft}">idea → product</text></g>
   <rect x="784" y="146" width="92" height="6" rx="3" fill="${deskEdge}"/>
   <rect x="790" y="118" width="9" height="28" rx="2" fill="${t.a}"/><rect x="801" y="122" width="8" height="24" rx="2" fill="${t.b}"/><rect x="811" y="126" width="10" height="20" rx="2" fill="${t.soft}"/>
-  <g transform="translate(852 124) scale(${f(1 + Math.min(.9, Math.log10(1 + actionsOf(state)) * .45))}) translate(-852 -124)"><g class="leaf"><path d="M852 124c-10-8-12-18-6-24 6 6 8 16 6 24zM852 124c6-10 16-14 22-10-4 8-14 12-22 10zM852 124c-12-2-20 2-22 8 8 3 17 0 22-8z" fill="#22c55e"/></g></g>
+  <g transform="translate(852 146) scale(${f(Math.min(1.1, 1 + Math.min(.9, Math.log10(1 + actionsOf(state)) * .45)))} ${f(1 + Math.min(.9, Math.log10(1 + actionsOf(state)) * .45))}) translate(-852 -146)"><g class="leaf"><path d="M852 124c-10-8-12-18-6-24 6 6 8 16 6 24zM852 124c6-10 16-14 22-10-4 8-14 12-22 10zM852 124c-12-2-20 2-22 8 8 3 17 0 22-8z" fill="#22c55e"/></g></g>
   <path d="M842 124h20l-3 22h-14z" fill="#c2410c"/>
   <rect x="0" y="250" width="${W}" height="80" fill="${desk}"/><rect x="0" y="250" width="${W}" height="4" fill="${deskEdge}"/>
   <!-- the room gets dark at night unless someone switched the lamp on -->
