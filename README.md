@@ -6,6 +6,7 @@
 </a>
 
 <p align="center">
+  <b>Web &amp; Flutter developer with commercial experience.</b><br>
   I build websites and apps: a clear interface, the code behind it<br>
   and the integrations that make it work — with attention to how the product looks and feels.
 </p>
@@ -34,6 +35,16 @@
     <td width="50%" valign="top"><b>Interactive graphics</b><br>Hand-written WebGL, 3D scenes and motion, plus Arduino hardware over Bluetooth.</td>
   </tr>
 </table>
+
+## In production
+
+Sites and systems I have built and shipped for clients in Kyrgyzstan and the United States:
+
+- **E-commerce** — online stores with Stripe checkout, subscriptions, inventory, order fulfilment and an owner admin panel.
+- **Booking and tourism** — tour catalogs, booking requests, availability calendars, multilingual SEO pages and Telegram lead delivery.
+- **Education platforms** — online courses, schedules, grades and attendance, admin tools for schools.
+- **Migrations and accessibility** — moving a live site off WordPress to its own stack, WCAG 2.2 AA fixes.
+- **Delivery** — Linux VPS, Nginx, systemd, atomic releases with rollback, backups.
 
 ## Featured work
 
@@ -102,7 +113,7 @@
 [Nvidia_presentaion_webpage](https://github.com/adilkananarbekov/Nvidia_presentaion_webpage) — a scroll-driven presentation with Three.js and GSAP ([open](https://adilkananarbekov.github.io/Nvidia_presentaion_webpage/)) ·
 [Orozo-ait](https://github.com/adilkananarbekov/Orozo-ait) — a holiday greeting with a Three.js moon ([open](https://adilkananarbekov.github.io/Orozo-ait/))
 
-**Client work:** e-commerce stores, booking sites and admin panels. Details on request.
+Client projects are shown on request.
 
 ## Stack
 
