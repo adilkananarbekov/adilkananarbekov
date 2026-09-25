@@ -1,141 +1,154 @@
-<p align="center">
-  <img src="assets/banner.svg" alt="Adilkan Anarbekov, web and Flutter developer" width="100%">
-</p>
-
-<h3 align="center">Web &amp; Flutter developer &middot; interfaces and integrations &middot; Bishkek, Kyrgyzstan</h3>
-
-<p align="center">
-  I build websites and apps: a clear interface, the code behind it and the integrations that make it work,
-  with attention to how the product looks and feels. &#x1F43E;
-</p>
-
-<p align="center">
-  <a href="https://adilkan.com"><img src="https://img.shields.io/badge/adilkan.com-13283D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website: adilkan.com" /></a>
-  <a href="mailto:adilkananarbekov751@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-  <a href="https://t.me/Adilkan_07"><img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" /></a>
-  <a href="https://www.linkedin.com/in/адилкан-анарбеков-5b157b303"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-</p>
-
-<p align="center">
-  <img src="assets/neon-divider.svg" alt="" width="100%">
-</p>
-
-<p align="center">
-  <img src="assets/snow.svg" alt="" width="100%">
-</p>
-
-## &#x2744;&#xFE0F; What I do
-- Web interfaces in React and TypeScript
-- Flutter / Dart apps
-- Server side on Node.js and PostgreSQL: APIs and Telegram automation
-- Interactive graphics and visual prototypes, down to hand-written WebGL
-- Hardware side projects: Arduino over Bluetooth
-
-<p align="center">
-  <img src="assets/neon-divider.svg" alt="" width="100%">
-</p>
-
-## &#x1F9F0; Tech stack
-<p align="center"><sub>CORE</sub></p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" width="44" height="44" alt="Node.js" title="Node.js" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="44" height="44" alt="React" title="React" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg" width="44" height="44" alt="Flutter" title="Flutter" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" width="44" height="44" alt="PostgreSQL" title="PostgreSQL" />
-</p>
-<p align="center"><sub>ALSO</sub></p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="32" height="32" alt="TypeScript" title="TypeScript" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dart/dart-original.svg" width="32" height="32" alt="Dart" title="Dart" />
+<a href="https://adilkan.com">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/express/ffffff" />
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" width="32" height="32" alt="Express" title="Express" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+    <img src="assets/banner-light.svg" alt="Adilkan Anarbekov — from idea to a working product. Web and Flutter developer, Bishkek, Kyrgyzstan" width="100%">
   </picture>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sqlite/sqlite-original.svg" width="32" height="32" alt="SQLite" title="SQLite" />
-  <img src="https://cdn.simpleicons.org/telegram/26A5E4" width="32" height="32" alt="Telegram Bot API" title="Telegram Bot API" />
+</a>
+
+<p align="center">
+  I build websites and apps: a clear interface, the code behind it<br>
+  and the integrations that make it work — with attention to how the product looks and feels.
+</p>
+
+<p align="center">
+  <a href="https://adilkan.com"><img src="https://img.shields.io/badge/adilkan.com-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website: adilkan.com"></a>
+  <a href="https://t.me/Adilkan_07"><img src="https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram: @Adilkan_07"></a>
+  <a href="mailto:adilkananarbekov751@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email: adilkananarbekov751@gmail.com"></a>
+  <a href="https://www.linkedin.com/in/адилкан-анарбеков-5b157b303"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+</p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/divider-dark.svg">
+  <img src="assets/divider-light.svg" alt="" width="100%">
+</picture>
+
+## What I do
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><b>Web interfaces</b><br>React and TypeScript: fast, clear pages with their own character.</td>
+    <td width="50%" valign="top"><b>Apps</b><br>Flutter and Dart: from the first screen to working flows with real data.</td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><b>Server side</b><br>Node.js and PostgreSQL: APIs, integrations and Telegram automation.</td>
+    <td width="50%" valign="top"><b>Interactive graphics</b><br>Hand-written WebGL, 3D scenes and motion, plus Arduino hardware over Bluetooth.</td>
+  </tr>
+</table>
+
+## Featured work
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://adilkan.com">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/projects/adilkan-dark.webp">
+          <img src="assets/projects/adilkan-light.webp" alt="adilkan.com home page: headline «From idea to a working product» next to a glass droplet" width="100%">
+        </picture>
+      </a>
+      <h3><a href="https://adilkan.com">adilkan.com</a></h3>
+      My portfolio, told as a story: a WebGL droplet travels through the projects,
+      <a href="https://adilkan.com/desk">/desk</a> is a 3D workshop, and ADI-01, a small companion,
+      guides visitors around the page and answers their questions.<br><br>
+      <code>JavaScript</code> <code>WebGL</code> <code>Node.js</code><br><br>
+      🌐 <a href="https://adilkan.com">Live site</a> · 🔒 private source
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://kyrgyz.tours">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/projects/go-kyrgyzstan-dark.webp">
+          <img src="assets/projects/go-kyrgyzstan-light.webp" alt="Go Kyrgyzstan Travel on a tablet: mountain route and a booking request that turns into a Telegram notification" width="100%">
+        </picture>
+      </a>
+      <h3><a href="https://kyrgyz.tours">Go Kyrgyzstan Travel</a></h3>
+      Tour sales for Kyrgyzstan: a tour catalog, day-by-day programs, booking requests,
+      an admin panel and Telegram notifications for every new request.<br><br>
+      <code>React</code> <code>TypeScript</code> <code>Express</code> <code>SQLite</code><br><br>
+      🌐 <a href="https://kyrgyz.tours">kyrgyz.tours</a> · 📦 <a href="https://github.com/adilkananarbekov/Tourism">code</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://github.com/adilkananarbekov/eduprog_firebase">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/projects/eduprog-dark.webp">
+          <img src="assets/projects/eduprog-light.webp" alt="Eduprog on a phone: schedule, attendance, grades and announcements" width="100%">
+        </picture>
+      </a>
+      <h3><a href="https://github.com/adilkananarbekov/eduprog_firebase">Eduprog</a></h3>
+      A Flutter app for running classes: schedule, grades, attendance
+      and announcements in one place. In development.<br><br>
+      <code>Flutter</code> <code>Dart</code> <code>Riverpod</code> <code>GoRouter</code><br><br>
+      📦 <a href="https://github.com/adilkananarbekov/eduprog_firebase">code</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://github.com/adilkananarbekov/Control_light">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/projects/lumen-dark.webp">
+          <img src="assets/projects/lumen-light.webp" alt="Lumen Control: a phone with the light switch app next to a desk lamp" width="100%">
+        </picture>
+      </a>
+      <h3><a href="https://github.com/adilkananarbekov/Control_light">Lumen Control</a></h3>
+      A tap in the app, light in the room: a Flutter app that switches Arduino-driven
+      light groups over Bluetooth. A hardware prototype.<br><br>
+      <code>Flutter</code> <code>Arduino</code> <code>Bluetooth</code><br><br>
+      📦 <a href="https://github.com/adilkananarbekov/Control_light">code</a>
+    </td>
+  </tr>
+</table>
+
+**More experiments:**
+[mine-sweeper](https://github.com/adilkananarbekov/mine-sweeper) — Minesweeper in vanilla JavaScript ([play](https://adilkananarbekov.github.io/mine-sweeper/)) ·
+[Nvidia_presentaion_webpage](https://github.com/adilkananarbekov/Nvidia_presentaion_webpage) — a scroll-driven presentation with Three.js and GSAP ([open](https://adilkananarbekov.github.io/Nvidia_presentaion_webpage/)) ·
+[Orozo-ait](https://github.com/adilkananarbekov/Orozo-ait) — a holiday greeting with a Three.js moon ([open](https://adilkananarbekov.github.io/Orozo-ait/))
+
+**Client work:** e-commerce stores, booking sites and admin panels. Details on request.
+
+## Stack
+
+<p align="center"><sub><b>CORE</b></sub><br>
+  <a href="https://adilkan.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nodejs,react,flutter,postgres&theme=dark">
+      <img src="https://skillicons.dev/icons?i=nodejs,react,flutter,postgres&theme=light" alt="Node.js, React, Flutter, PostgreSQL">
+    </picture>
+  </a>
+</p>
+<p align="center"><sub><b>ALSO</b></sub><br>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/webgl/ffffff" />
-    <img src="https://cdn.simpleicons.org/webgl/990000" width="32" height="32" alt="WebGL" title="WebGL" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=ts,js,dart,express,sqlite,html,css,threejs,arduino,nginx,linux,git&perline=12&theme=dark">
+    <img src="https://skillicons.dev/icons?i=ts,js,dart,express,sqlite,html,css,threejs,arduino,nginx,linux,git&perline=12&theme=light" alt="TypeScript, JavaScript, Dart, Express, SQLite, HTML, CSS, Three.js, Arduino, Nginx, Linux, Git">
   </picture>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" width="32" height="32" alt="HTML5" title="HTML5" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" width="32" height="32" alt="CSS3" title="CSS3" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/arduino/arduino-original.svg" width="32" height="32" alt="Arduino" title="Arduino" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="32" height="32" alt="Git" title="Git" />
+</p>
+
+## On GitHub
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=adilkananarbekov&theme=github_dark">
+    <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=adilkananarbekov&theme=github" alt="GitHub stats of adilkananarbekov" height="170">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=adilkananarbekov&theme=github_dark">
+    <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=adilkananarbekov&theme=github" alt="Repositories per language" height="170">
+  </picture>
+</p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/divider-dark.svg">
+  <img src="assets/divider-light.svg" alt="" width="100%">
+</picture>
+
+<p align="center">
+  <img src="assets/cat_pixel.svg" alt="Pixel cat, the unofficial mascot" width="120">
 </p>
 
 <p align="center">
-  <img src="assets/neon-divider.svg" alt="" width="100%">
-</p>
-
-## &#x1F680; Featured projects
-
-### [adilkan.com](https://adilkan.com)
-My portfolio site, told as a story: *from idea to a working product*. The home page has a native WebGL droplet,
-[/desk](https://adilkan.com/desk) is a full-screen 3D workshop, and ADI-01, a small companion, flies around the site
-and answers visitors' questions. The front end is vanilla JavaScript; the server side is plain Node.js with zero runtime dependencies.<br>
-`JavaScript` `WebGL` `HTML/CSS` `Node.js`<br>
-&#x1F310; [adilkan.com](https://adilkan.com) &middot; &#x1F512; the source code is in a private repository
-
-### [Go Kyrgyzstan Travel](https://kyrgyz.tours)
-Tour-sales website for Kyrgyzstan: tour catalog, day-by-day programs, booking requests, an admin panel,
-and Telegram notifications for new requests.<br>
-`React` `TypeScript` `Express` `SQLite` `Telegram Bot API`<br>
-&#x1F310; [kyrgyz.tours](https://kyrgyz.tours) &middot; &#x1F4E6; [repository](https://github.com/adilkananarbekov/Tourism)
-
-### [Eduprog](https://github.com/adilkananarbekov/eduprog_firebase)
-Flutter app for running classes: roles, schedule, grades, attendance and announcements. In development.<br>
-`Flutter` `Dart` `Riverpod` `GoRouter`<br>
-&#x1F4E6; [repository](https://github.com/adilkananarbekov/eduprog_firebase)
-
-### [Lumen Control](https://github.com/adilkananarbekov/Control_light)
-Flutter app that switches Arduino-driven light groups over Bluetooth. A hardware prototype: the Arduino sketch
-handles the LED groups, incoming commands and a ping/pong connection check.<br>
-`Flutter` `Dart` `Arduino` `Bluetooth`<br>
-&#x1F4E6; [repository](https://github.com/adilkananarbekov/Control_light)
-
-### More experiments
-[mine-sweeper](https://github.com/adilkananarbekov/mine-sweeper), Minesweeper in vanilla JavaScript ([play](https://adilkananarbekov.github.io/mine-sweeper/))
-&middot; [Nvidia_presentaion_webpage](https://github.com/adilkananarbekov/Nvidia_presentaion_webpage), a scroll-driven presentation with Three.js and GSAP ([open](https://adilkananarbekov.github.io/Nvidia_presentaion_webpage/))
-&middot; [Orozo-ait](https://github.com/adilkananarbekov/Orozo-ait), a greeting site with Three.js and GSAP ([open](https://adilkananarbekov.github.io/Orozo-ait/))
-
-**Client work:** e-commerce stores, booking sites and admin panels for clients. Details on request.
-
-<p align="center">
-  <img src="assets/neon-divider.svg" alt="" width="100%">
-</p>
-
-## &#x1F4CA; GitHub stats
-
-<p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=adilkananarbekov&theme=radical" alt="Adilkan's Stats" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=adilkananarbekov&theme=radical" alt="Adilkan's Languages" />
+  <b>Have a site or an app in mind?</b><br>
+  Write to me on <a href="https://t.me/Adilkan_07">Telegram</a> or at
+  <a href="mailto:adilkananarbekov751@gmail.com">adilkananarbekov751@gmail.com</a> — and let's turn the idea into a working product.
 </p>
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=adilkananarbekov&theme=radical&utcOffset=6" alt="Adilkan's Productive Time" />
-</p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=adilkananarbekov&label=Profile%20Views&color=fe428e&style=flat-square" alt="Profile Views" />
-</p>
-
-<p align="center">
-  <img src="assets/neon-divider.svg" alt="" width="100%">
-</p>
-
-<p align="center">
-  <img src="assets/cat_pixel.svg" alt="Animated pixel cat mascot" width="160">
-</p>
-
-<p align="center">
-  Cat-approved builds and debugging. &#x1F60E;
-</p>
-
-<p align="center">
-  <img src="assets/snow.svg" alt="" width="100%">
-</p>
-
-<p align="center">
-  Have a site or an app in mind? Write to me on <a href="https://t.me/Adilkan_07">Telegram</a>
-  or at <a href="mailto:adilkananarbekov751@gmail.com">adilkananarbekov751@gmail.com</a>. &#x2728;
+  <img src="https://komarev.com/ghpvc/?username=adilkananarbekov&label=profile%20views&color=2563eb&style=flat-square" alt="Profile views">
 </p>
