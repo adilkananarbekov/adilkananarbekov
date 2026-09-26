@@ -19,6 +19,7 @@
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/divider-dark.svg"><img src="assets/lab/divider-light.svg" alt="" width="100%"></picture>
 
+<a name="live-room"></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/h01-dark.svg"><img src="assets/lab/h01-light.svg" alt="Lab 01: live room" width="100%"></picture>
 
 <a href="https://adilkan.com/api/companion/lab/do/lamp" title="Click the room to switch the lamp — for everyone, right away">
@@ -129,6 +130,7 @@ Client projects are shown on request.
   </picture>
 </p>
 
+<a name="play"></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/h06-dark.svg"><img src="assets/lab/h06-light.svg" alt="Lab 06: play with the cat" width="100%"></picture>
 
 <div align="center">
@@ -151,6 +153,7 @@ Client projects are shown on request.
 
 </div>
 
+<a name="wall"></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/h07-dark.svg"><img src="assets/lab/h07-light.svg" alt="Lab 07: leave a mark" width="100%"></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/wall-dark"><img src="https://adilkan.com/api/companion/lab/img/wall-light" alt="The sticker wall: marks left by visitors of this profile" width="100%"></picture>
@@ -176,6 +179,7 @@ Client projects are shown on request.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/divider-dark.svg"><img src="assets/lab/divider-light.svg" alt="" width="100%"></picture>
 
+<a name="lab-cat"></a>
 <a href="https://adilkan.com/api/companion/lab/do/pet" title="Pet the cat">
   <picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/cat-dark"><img src="https://adilkan.com/api/companion/lab/img/cat-light" alt="The lab cat plays with the droplet, follows it with its eyes and takes naps; visitors can pet it" width="100%"></picture>
 </a>
