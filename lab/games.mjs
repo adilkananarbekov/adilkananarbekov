@@ -1,11 +1,10 @@
 // Interactive pieces of the lab: tic-tac-toe against the cat, the sticker wall and the footer cat. Pure functions, no I/O.
-import {SANS, MONO, esc, f, rng, REDUCED} from './palette.mjs';
+import {SANS, MONO, esc, f, rng, REDUCED, src, tag} from './palette.mjs';
 
 export const LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 // Null prototype: only these names are stickers ("constructor" and friends are not).
 export const STICKERS = Object.freeze(Object.assign(Object.create(null), {rocket: '🚀', coffee: '☕', cat: '🐱', bulb: '💡', fire: '🔥', star: '⭐', heart: '💜', wave: '👋'}));
 export const isSticker = e => typeof e === 'string' && Object.hasOwn(STICKERS, e);
-const nick = s => (s && s.length > 13 ? s.slice(0, 12) + '…' : s);
 const times = n => (n === 1 ? 'once' : `${n} times`);
 
 /* ---------- Tic-tac-toe rules ---------- */
@@ -63,7 +62,7 @@ export function tttStatus(t, g) {
   const W = 800, H = 88, sc = g.score, res = g.result;
   const head = !res ? (g.moves ? 'Your move — you are ✕, the cat plays 🐾' : 'New game — tap any square, you go first')
     : res.who === 'x' ? 'You beat the cat! 🎉' : res.who === 'o' ? 'The cat wins 😼' : 'A draw 🤝';
-  const sub = [res ? 'tap any square for a rematch' : null, g.lastBy ? `last move @${nick(g.lastBy)}` : null, g.distracted ? 'the cat chased a butterfly 🦋' : null].filter(Boolean).join(' · ');
+  const sub = [res ? 'tap any square for a rematch' : null, g.moves ? `last move ${src(g.lastBy)}` : null, g.distracted ? 'the cat chased a butterfly 🦋' : null].filter(Boolean).join(' · ');
   const scoreFill = t.name === 'dark' ? t.spark : t.a;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(head)}. Score: humans ${sc.x}, the cat ${sc.o}, draws ${sc.draw}.">
 <defs><style>.live{animation:live 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes live{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.3}}${REDUCED}</style>
@@ -71,7 +70,7 @@ export function tttStatus(t, g) {
 <rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="16" fill="${t.panel}" stroke="${t.line}"/><rect x="1" y="1" width="${W - 2}" height="3" rx="1.5" fill="url(#bar)"/>
 <circle class="live" cx="26" cy="36" r="5" fill="${t.a}"/>
 <text x="42" y="42" font-family="${SANS}" font-size="19" font-weight="800" fill="${t.ink}">${esc(head)}</text>
-<text x="42" y="68" font-family="${MONO}" font-size="12.5" fill="${t.soft}">${esc(sub || 'one move per issue · the cat answers right away')}</text>
+<text x="42" y="68" font-family="${MONO}" font-size="12.5" fill="${t.soft}">${esc(sub || 'tap a square · the cat answers right away')}</text>
 <text x="${W - 24}" y="42" text-anchor="end" font-family="${MONO}" font-size="14" font-weight="700" fill="${scoreFill}">humans ${sc.x} · cat ${sc.o} · draws ${sc.draw}</text>
 <text x="${W - 24}" y="68" text-anchor="end" font-family="${MONO}" font-size="12" fill="${t.soft}">${g.games} game${g.games === 1 ? '' : 's'} played</text>
 </svg>
@@ -83,9 +82,9 @@ export function stickerWall(t, stickers, now = new Date(), totals = {}) {
   const W = 1200, H = 400, COLS = 10, ROWS = 3, list = stickers.slice(-COLS * ROWS);
   const marks = totals.marks ?? stickers.length, visitors = totals.visitors ?? new Set(stickers.map(s => s.by)).size;
   const summary = marks ? `${marks} mark${marks === 1 ? '' : 's'} from ${visitors} visitor${visitors === 1 ? '' : 's'}` : 'The wall is empty — be the first';
-  // Each sticker keeps a slot derived from its issue number (linear probing on collisions), so the wall barely moves when a new one arrives.
+  // Each sticker keeps a slot derived from its number (linear probing on collisions), so the wall barely moves when a new one arrives.
   const taken = new Set(), placed = list.map((s, i) => {
-    let slot = ((s.n | 0) * 7919) % (COLS * ROWS);
+    let slot = ((s.n | 0) * 13) % (COLS * ROWS);
     for (let k = 0; taken.has(slot) && k < COLS * ROWS; k++) slot = (slot + 1) % (COLS * ROWS);
     taken.add(slot);
     const r = rng((s.n | 0) * 104729), col = slot % COLS, row = Math.floor(slot / COLS);
@@ -95,7 +94,7 @@ export function stickerWall(t, stickers, now = new Date(), totals = {}) {
   // Discs first, labels in a second pass, so a disc never covers a name.
   const discs = placed.map(p => `<g transform="translate(${f(p.x)} ${f(p.y)})"><g transform="rotate(${p.rot})"><g class="${p.newest ? 'slap' : 'wob'}"${p.newest ? '' : ` style="animation-delay:-${p.d}s"`}>
       <circle r="31" fill="${t.panel}" stroke="${t.line}" filter="url(#sh)"/><text y="13" text-anchor="middle" font-size="34">${STICKERS[p.s.e] || '⭐'}</text></g></g></g>`).join('\n');
-  const labels = placed.map(p => `<text x="${f(p.x)}" y="${f(p.y + 50)}" text-anchor="middle" font-family="${MONO}" font-size="11" font-weight="700" fill="${t.soft}">@${esc(nick(p.s.by))}</text>`).join('\n');
+  const labels = placed.map(p => `<text x="${f(p.x)}" y="${f(p.y + 50)}" text-anchor="middle" font-family="${MONO}" font-size="11" font-weight="700" fill="${t.soft}">${esc(tag(p.s.by))}</text>`).join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="title desc">
 <title id="title">The sticker wall of the lab</title>
 <desc id="desc">${esc(summary)}. Pick a sticker below to leave yours.</desc>
@@ -108,7 +107,7 @@ export function stickerWall(t, stickers, now = new Date(), totals = {}) {
 <g clip-path="url(#frame)">
 <rect width="${W}" height="${H}" fill="${t.bg}"/><rect width="${W}" height="${H}" fill="url(#grid)"/>
 <text x="40" y="48" font-family="${SANS}" font-size="22" font-weight="800" fill="${t.ink}">${esc(summary)}</text>
-<text x="40" y="70" font-family="${MONO}" font-size="12" fill="${t.soft}">one sticker per visitor · the newest 30 stay on the wall · pick yours below</text>
+<text x="40" y="70" font-family="${MONO}" font-size="12" fill="${t.soft}">the newest 30 stay on the wall · pick yours below · names are countries, never people</text>
 ${discs || `<text class="pin" x="600" y="230" text-anchor="middle" font-size="60">📌</text>`}
 ${labels}
 </g>
@@ -139,7 +138,7 @@ export function footerCat(t, state, now = new Date()) {
   const pc = (x, y) => `${cx + x} ${gy + y}`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="title desc">
 <title id="title">The lab cat</title>
-<desc id="desc">The cat plays with the droplet, follows it with its eyes, swats it off its head and takes a nap. ${pets.count ? `Petted ${times(pets.count)}, last by ${esc(pets.by)}` : 'Not petted yet'}.</desc>
+<desc id="desc">The cat plays with the droplet, follows it with its eyes, swats it off its head and takes a nap. ${pets.count ? `Petted ${times(pets.count)}, last ${esc(src(pets.by))}` : 'Not petted yet'}.</desc>
 <defs>
   <radialGradient id="drop" cx="36%" cy="30%" r="78%"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="${t.d2}"/><stop offset="1" stop-color="${t.d3}"/></radialGradient>
   <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="${t.glow}" stop-opacity="${t.glowOp}"/><stop offset="1" stop-color="${t.glow}" stop-opacity="0"/></radialGradient>
@@ -201,7 +200,7 @@ export function footerCat(t, state, now = new Date()) {
   </g>
   ${petted ? [0, 1, 2, 3].map(i => `<text class="heart" style="--dx:${[-40, -14, 16, 44][i]}px;animation-delay:-${f(i * .85)}s" x="${cx - 8 + [-30, -10, 10, 30][i]}" y="${gy - 150}" font-size="${18 + (i % 2) * 6}" fill="${t.a}">♥</text>`).join('') : ''}
   <text x="40" y="46" font-family="${SANS}" font-size="20" font-weight="800" fill="${t.ink}">The lab cat</text>
-  <text x="40" y="70" font-family="${MONO}" font-size="12.5" fill="${t.soft}">${pets.count ? `petted ${times(pets.count)} · last by @${esc(nick(pets.by))}` : 'not petted yet — be the first'}</text>
+  <text x="40" y="70" font-family="${MONO}" font-size="12.5" fill="${t.soft}">${pets.count ? `petted ${times(pets.count)} · last ${esc(src(pets.by))}` : 'not petted yet — be the first'}</text>
   <text x="40" y="92" font-family="${MONO}" font-size="12.5" fill="${t.soft}">fed ${times(state.cat.fed)}${petted ? ' · purring right now' : ''}</text>
   <text x="${W - 40}" y="46" text-anchor="end" font-family="${MONO}" font-size="12" fill="${t.soft}">plays · follows the droplet · naps</text>
 </g>

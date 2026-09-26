@@ -20,6 +20,11 @@ export const MONO = "ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liber
 export const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 export const f = n => +n.toFixed(2);
 
+// Who did something: "@login" for entries migrated from the GitHub issue era, otherwise a country name, otherwise a guest.
+const cut = (s, n) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
+export const src = by => (!by ? 'by a guest' : by.startsWith('@') ? cut(by, 15) : `from ${cut(by, 16)}`);
+export const tag = by => (!by ? 'guest' : cut(by, 14));
+
 // Deterministic pseudo-random numbers so every build draws the same sparkles.
 export function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
 

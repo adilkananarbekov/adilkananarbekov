@@ -1,5 +1,5 @@
 // Live SVGs redrawn by the lab workflow: the live room (Bishkek sky, the lamp, the cat) and the commit mountains.
-import {SANS, MONO, esc, f, rng, REDUCED, cat, catCss} from './palette.mjs';
+import {SANS, MONO, esc, f, rng, REDUCED, cat, catCss, src} from './palette.mjs';
 
 const pad = n => String(n).padStart(2, '0');
 
@@ -73,16 +73,15 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   const bx = wx + 24 + k * (ww - 48), by = wy + wh - 40 - Math.sin(Math.PI * k) * (wh - 80);
   const wk = weatherKind(state.weather?.code), wet = wk && ['drizzle', 'rain', 'storm'].includes(wk.kind), grey = wk && ['overcast', 'fog', 'drizzle', 'rain', 'snow', 'storm'].includes(wk.kind);
   const r = rng(h * 60 + m), stars = (phase === 'night' || phase === 'dusk') && !grey ? Array.from({length: phase === 'night' ? 26 : 10}, () => ({x: wx + 8 + r() * (ww - 16), y: wy + 8 + r() * (wh - 90), s: .6 + r() * 1.3, d: f(-r() * 3)})) : [];
-  const nick = s => (s && s.length > 13 ? s.slice(0, 12) + '…' : s);
   const roomDark = dark && !lamp ? .55 : dark ? .22 : 0;
   const wall = t.name === 'light' ? '#eef3f9' : '#15111c', desk = t.name === 'light' ? '#d6e0ec' : '#221a2d', deskEdge = t.name === 'light' ? '#c3d0e0' : '#2e2340';
   const moodText = {purring: 'purring · fed', peckish: 'peckish · fed', hungry: 'hungry! · fed', asleep: 'asleep · fed'}[mood];
   const lines = [
     ['sky', wk ? `${(!isSun && NIGHT_ICON[wk.kind]) || ICON[wk.kind]} ${Math.round(state.weather.temp)}°C · ${wk.label}` : `${isSun ? '☀️' : '🌙'} ${phase}`],
     ['sun', `${phase} · ${sky.rise}–${sky.set}`],
-    ['lamp', lamp ? `ON · by @${nick(state.lamp.by) || 'someone'}` : `off${state.lamp.by ? ` · by @${nick(state.lamp.by)}` : ''}`],
+    ['lamp', `${lamp ? 'ON' : 'off'}${state.lamp.toggles ? ` · ${src(state.lamp.by)}` : ''}`],
     ['cat', `${moodText} ${state.cat.fed}×`],
-    ['last', state.cat.lastBy ? `@${nick(state.cat.lastBy)} · ${ago(state.cat.lastFedAt, now)}` : 'nobody yet — be first'],
+    ['fed', state.cat.fed ? `${ago(state.cat.lastFedAt, now)} · ${src(state.cat.lastBy)}` : 'nobody yet — be first'],
     ['upd', `${day} ${MONTHS[mon - 1]} ${pad(h)}:${pad(m)} (UTC+6)`],
   ];
   const catX = 834, catY = 250, roomT = t.name === 'dark' ? {...t, cat: '#2d2440'} : t;
@@ -177,7 +176,7 @@ export function liveRoom(t, state, now = new Date(), commits = null) {
   <rect x="884" y="30" width="288" height="3" rx="1.5" fill="url(#bar)"/>
   <circle class="live" cx="906" cy="60" r="4.5" fill="${t.a}"/>
   <text class="m" x="920" y="65" font-size="13" font-weight="700" fill="${t.a}">LIVE · BISHKEK ${pad(h)}:${pad(m)}</text>
-  ${lines.map(([k2, v], i) => `<text class="m" x="904" y="${104 + i * 30}" font-size="13" fill="${t.soft}">${esc(k2)}</text><text class="m" x="954" y="${104 + i * 30}" font-size="13" font-weight="600" fill="${t.ink}">${esc(v)}</text>`).join('\n  ')}
+  ${lines.map(([k2, v], i) => `<text class="m" x="904" y="${104 + i * 30}" font-size="13" fill="${t.soft}">${esc(k2)}</text><text class="m" x="954" y="${104 + i * 30}" font-size="13" font-weight="600" fill="${t.ink}">${esc(v.length > 27 ? v.slice(0, 26) + '…' : v)}</text>`).join('\n  ')}
   <text class="t" x="1028" y="288" text-anchor="middle" font-size="11.5" fill="${t.soft}">buttons below change the room for everyone</text>
 </g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="22" fill="none" stroke="${t.line}"/>

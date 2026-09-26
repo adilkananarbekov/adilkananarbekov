@@ -1,22 +1,17 @@
 name: lab
 
-# The profile's lab: redraws the live pictures every hour and when a visitor presses a README button
-# (any issue titled "lab: …": lamp, feed, pet, ttt 1-9, sticker <name>). Output goes to the lab-output branch.
-# Each run applies every open "lab:" issue, so runs that GitHub drops from the concurrency queue lose nothing.
+# Redraws the contribution mountains of the profile README into the lab-output branch.
+# The interactive parts (lamp, cat, tic-tac-toe, stickers) run on the adilkan.com server and need no workflow.
 on:
   schedule:
-    - cron: '17 * * * *'
-  issues:
-    types: [opened]
+    - cron: '17 */3 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
-  issues: write
 
 jobs:
   lab:
-    if: github.event_name != 'issues' || startsWith(github.event.issue.title, 'lab:')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     concurrency:
@@ -29,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Redraw the lab
+      - name: Redraw the mountains
         run: node lab/run.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

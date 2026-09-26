@@ -19,30 +19,31 @@
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/divider-dark.svg"><img src="assets/lab/divider-light.svg" alt="" width="100%"></picture>
 
+<a name="live-room"></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/h01-dark.svg"><img src="assets/lab/h01-light.svg" alt="Lab 01: live room" width="100%"></picture>
 
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20switch%20the%20lamp&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20switches%20the%20lamp%20in%20the%20live%20room%20for%20everyone%20and%20closes%20this%20issue.%20%F0%9F%92%A1" title="Click the room to switch the lamp — for everyone who opens this page">
+<a href="https://adilkan.com/api/companion/lab/do/lamp" title="Click the room to switch the lamp — for everyone, right away">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/live-dark.svg">
-    <img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/live-light.svg" alt="The live room of the lab: a window that follows the sunrise and sunset in Bishkek, a lamp visitors can switch, a cat visitors can feed" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/live-dark">
+    <img src="https://adilkan.com/api/companion/lab/img/live-light" alt="The live room of the lab: a window that follows the sunrise and sunset in Bishkek, a lamp visitors can switch, a cat visitors can feed" width="100%">
   </picture>
 </a>
 
 <p align="center">
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20switch%20the%20lamp&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20switches%20the%20lamp%20in%20the%20live%20room%20for%20everyone%20and%20closes%20this%20issue.%20%F0%9F%92%A1" title="Opens a pre-filled issue: press Create and the lamp switches for everyone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/btn-lamp-dark.svg"><img src="assets/lab/btn-lamp-light.svg" alt="Switch the lamp" height="60"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20feed%20the%20cat&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20feeds%20the%20cat%2C%20remembers%20you%20and%20closes%20this%20issue.%20%F0%9F%90%9F" title="Opens a pre-filled issue: press Create and the cat gets its fish"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/btn-cat-dark.svg"><img src="assets/lab/btn-cat-light.svg" alt="Feed the cat" height="60"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/lamp" title="Switches the lamp for everyone — the page comes back with the new room"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/btn-lamp-dark.svg"><img src="assets/lab/btn-lamp-light.svg" alt="Switch the lamp" height="60"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/feed" title="The cat gets its fish right away"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/btn-cat-dark.svg"><img src="assets/lab/btn-cat-light.svg" alt="Feed the cat" height="60"></picture></a>
 </p>
 
 <details>
 <summary><b>How does the live room work?</b></summary>
 <br>
 
-- The window follows the real sunrise, sunset and weather in Bishkek: rain, snow, fog or a thunderstorm when there is one, stars on clear nights. The clock on the wall shows the time of the last redraw.
-- **Switch the lamp** and **Feed the cat** open a pre-filled issue. Press *Create*, and a GitHub Action ([`lab.yml`](.github/workflows/lab.yml)) switches the lamp or feeds the cat, thanks you in a comment and closes the issue. The picture changes for every visitor within about five minutes (GitHub caches images).
+- The window follows the real sunrise, sunset and weather in Bishkek: rain, snow, fog or a thunderstorm when there is one, stars on clear nights. The room is drawn fresh on every page view, so the clock on the wall is the time you opened it.
+- **Switch the lamp** and **Feed the cat** work at once: the button takes a quick hop to adilkan.com, the lamp switches or the cat gets its fish, and you land back on this spot with the new room — for every visitor. No sign-in, no issues, no cookies.
 - The lamp is a nod to [Lumen Control](https://github.com/adilkananarbekov/Control_light): a tap in the app — light in the room.
 - The cat sleeps at night when the lamp is off and gets hungry if nobody feeds it for a day. The plant on the shelf grows with every visitor action.
-- The same bot runs the tic-tac-toe board, the sticker wall and the cat at the bottom of the page.
-- Everything is plain SVG drawn by the [`lab/`](lab) scripts. The only outside data is the weather from [Open-Meteo](https://open-meteo.com); no trackers. The room is redrawn every hour into the [`lab-output`](https://github.com/adilkananarbekov/adilkananarbekov/tree/lab-output) branch.
+- The same server runs the tic-tac-toe board, the sticker wall and the cat at the bottom of the page. Visitors appear only as their country, never by name or IP, and a light rate limit keeps the buttons fair.
+- Everything is plain SVG, drawn by the [`lab/`](lab) code on a small Node service on adilkan.com — the one that also runs the site assistant ADI-01. The only outside data is the weather from [Open-Meteo](https://open-meteo.com); no trackers. The contribution mountains are redrawn every few hours by a GitHub Action ([`lab.yml`](.github/workflows/lab.yml)).
 
 </details>
 
@@ -129,42 +130,46 @@ Client projects are shown on request.
   </picture>
 </p>
 
+<a name="play"></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/h06-dark.svg"><img src="assets/lab/h06-light.svg" alt="Lab 06: play with the cat" width="100%"></picture>
 
 <div align="center">
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-status-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-status-light.svg" alt="Tic-tac-toe against the cat: whose move it is and the score" width="640"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-status-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-status-light" alt="Tic-tac-toe against the cat: whose move it is and the score" width="640"></picture>
 
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%201&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%201%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 1"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-1-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-1-light.svg" alt="Square 1" width="96"></picture></a>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%202&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%202%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 2"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-2-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-2-light.svg" alt="Square 2" width="96"></picture></a>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%203&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%203%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 3"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-3-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-3-light.svg" alt="Square 3" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/1" title="Play square 1"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-1-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-1-light" alt="Square 1" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/2" title="Play square 2"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-2-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-2-light" alt="Square 2" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/3" title="Play square 3"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-3-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-3-light" alt="Square 3" width="96"></picture></a>
 <br>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%204&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%204%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 4"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-4-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-4-light.svg" alt="Square 4" width="96"></picture></a>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%205&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%205%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 5"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-5-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-5-light.svg" alt="Square 5" width="96"></picture></a>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%206&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%206%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 6"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-6-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-6-light.svg" alt="Square 6" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/4" title="Play square 4"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-4-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-4-light" alt="Square 4" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/5" title="Play square 5"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-5-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-5-light" alt="Square 5" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/6" title="Play square 6"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-6-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-6-light" alt="Square 6" width="96"></picture></a>
 <br>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%207&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%207%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 7"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-7-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-7-light.svg" alt="Square 7" width="96"></picture></a>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%208&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%208%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 8"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-8-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-8-light.svg" alt="Square 8" width="96"></picture></a>
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20ttt%209&body=Just%20press%20%22Create%22%20%E2%80%94%20you%20put%20%E2%9C%95%20on%20square%209%2C%20the%20cat%20answers%20right%20away%2C%20and%20the%20bot%20closes%20this%20issue.%20%F0%9F%90%BE" title="Play square 9"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-9-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/ttt-9-light.svg" alt="Square 9" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/7" title="Play square 7"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-7-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-7-light" alt="Square 7" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/8" title="Play square 8"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-8-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-8-light" alt="Square 8" width="96"></picture></a>
+<a href="https://adilkan.com/api/companion/lab/do/ttt/9" title="Play square 9"><picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/ttt-9-dark"><img src="https://adilkan.com/api/companion/lab/img/ttt-9-light" alt="Square 9" width="96"></picture></a>
 
-<sub>Tap a square: it opens a pre-filled issue — press <i>Create</i>, and the cat answers on the same board. It is good, but it gets distracted by butterflies.</sub>
+<sub>Tap a square: you play ✕, the cat answers at once and you are back at this board. It is good, but it gets distracted by butterflies.</sub>
 
 </div>
 
+<a name="wall"></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/h07-dark.svg"><img src="assets/lab/h07-light.svg" alt="Lab 07: leave a mark" width="100%"></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/wall-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/wall-light.svg" alt="The sticker wall: marks left by visitors of this profile" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/wall-dark"><img src="https://adilkan.com/api/companion/lab/img/wall-light" alt="The sticker wall: marks left by visitors of this profile" width="100%"></picture>
 
 <p align="center">
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20rocket&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%F0%9F%9A%80%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a 🚀 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-rocket-dark.svg"><img src="assets/lab/sticker-rocket-light.svg" alt="Sticker 🚀" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20coffee&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%E2%98%95%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a ☕ on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-coffee-dark.svg"><img src="assets/lab/sticker-coffee-light.svg" alt="Sticker ☕" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20cat&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%F0%9F%90%B1%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a 🐱 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-cat-dark.svg"><img src="assets/lab/sticker-cat-light.svg" alt="Sticker 🐱" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20bulb&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%F0%9F%92%A1%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a 💡 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-bulb-dark.svg"><img src="assets/lab/sticker-bulb-light.svg" alt="Sticker 💡" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20fire&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%F0%9F%94%A5%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a 🔥 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-fire-dark.svg"><img src="assets/lab/sticker-fire-light.svg" alt="Sticker 🔥" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20star&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%E2%AD%90%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a ⭐ on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-star-dark.svg"><img src="assets/lab/sticker-star-light.svg" alt="Sticker ⭐" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20heart&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%F0%9F%92%9C%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a 💜 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-heart-dark.svg"><img src="assets/lab/sticker-heart-light.svg" alt="Sticker 💜" height="64"></picture></a>
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20sticker%20wave&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20sticks%20%F0%9F%91%8B%20on%20the%20wall%20with%20your%20name%20and%20closes%20this%20issue." title="Leave a 👋 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-wave-dark.svg"><img src="assets/lab/sticker-wave-light.svg" alt="Sticker 👋" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/rocket" title="Leave a 🚀 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-rocket-dark.svg"><img src="assets/lab/sticker-rocket-light.svg" alt="Sticker 🚀" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/coffee" title="Leave a ☕ on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-coffee-dark.svg"><img src="assets/lab/sticker-coffee-light.svg" alt="Sticker ☕" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/cat" title="Leave a 🐱 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-cat-dark.svg"><img src="assets/lab/sticker-cat-light.svg" alt="Sticker 🐱" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/bulb" title="Leave a 💡 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-bulb-dark.svg"><img src="assets/lab/sticker-bulb-light.svg" alt="Sticker 💡" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/fire" title="Leave a 🔥 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-fire-dark.svg"><img src="assets/lab/sticker-fire-light.svg" alt="Sticker 🔥" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/star" title="Leave a ⭐ on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-star-dark.svg"><img src="assets/lab/sticker-star-light.svg" alt="Sticker ⭐" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/heart" title="Leave a 💜 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-heart-dark.svg"><img src="assets/lab/sticker-heart-light.svg" alt="Sticker 💜" height="64"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/sticker/wave" title="Leave a 👋 on the wall"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/sticker-wave-dark.svg"><img src="assets/lab/sticker-wave-light.svg" alt="Sticker 👋" height="64"></picture></a>
 </p>
+
+<p align="center"><sub>One sticker per visitor — press another one to swap it. The wall signs it with your country.</sub></p>
 
 <details>
 <summary><b>Open the ADI-01 terminal</b></summary>
@@ -174,12 +179,13 @@ Client projects are shown on request.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/divider-dark.svg"><img src="assets/lab/divider-light.svg" alt="" width="100%"></picture>
 
-<a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20pet%20the%20cat&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20pets%20the%20cat%20for%20you%2C%20it%20purrs%2C%20and%20this%20issue%20closes.%20%F0%9F%98%BD" title="Pet the cat">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/cat-dark.svg"><img src="https://raw.githubusercontent.com/adilkananarbekov/adilkananarbekov/lab-output/cat-light.svg" alt="The lab cat plays with the droplet, follows it with its eyes and takes naps; visitors can pet it" width="100%"></picture>
+<a name="lab-cat"></a>
+<a href="https://adilkan.com/api/companion/lab/do/pet" title="Pet the cat">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://adilkan.com/api/companion/lab/img/cat-dark"><img src="https://adilkan.com/api/companion/lab/img/cat-light" alt="The lab cat plays with the droplet, follows it with its eyes and takes naps; visitors can pet it" width="100%"></picture>
 </a>
 
 <p align="center">
-  <a href="https://github.com/adilkananarbekov/adilkananarbekov/issues/new?title=lab%3A%20pet%20the%20cat&body=Just%20press%20%22Create%22%20%E2%80%94%20the%20lab%20bot%20pets%20the%20cat%20for%20you%2C%20it%20purrs%2C%20and%20this%20issue%20closes.%20%F0%9F%98%BD" title="Opens a pre-filled issue: press Create and the cat purrs for everyone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/btn-pet-dark.svg"><img src="assets/lab/btn-pet-light.svg" alt="Pet the cat" height="60"></picture></a>
+  <a href="https://adilkan.com/api/companion/lab/do/pet" title="The cat purrs for everyone right away"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lab/btn-pet-dark.svg"><img src="assets/lab/btn-pet-light.svg" alt="Pet the cat" height="60"></picture></a>
 </p>
 
 <p align="center">
